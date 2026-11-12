@@ -132,6 +132,11 @@ Implemented `src/attribution/canonical.py` (logical data identity resolution sep
 ### 9.6 Phase 4.3 Independent Generalization & Statistical Audit (`EXP-008`)
 Evaluated on 104 independently shuffled scenarios (`seed=43127`, opaque IDs `IND_SC_001`..`IND_SC_104`) across 4 classes, 10 ablations (`A`–`J`), 6 agent policies, 12 canonicalization cases, and 5 intervention controls (`src/evaluation/phase4_3_runner.py`). `E_COMBINED` achieved `4ClassAcc = 0.9615` (`95% CI [0.9053, 0.9849]`), `MacroF1 = 0.9575`, `Coverage = 0.6538`, `SelectiveAcc = 0.9412`, `FAR = 0.000`. Canonicalization passed `11/12` (exposing a defect when identical `(tool, args)` calls return different content/trust). See `output.md` Section `M`.
 
+### 9.7 Planned Phase 5 Methodology (Not Completed)
+1. **Canonical Identity Correction:** Fix Phase 4.3 Case 5 by separating physical ID, logical `source_id`, content digest, trust provenance, and transformation lineage.
+2. **Live LLM Evaluation:** Verify local Ollama setup, run a live smoke test, and execute paired `ACTUAL` vs. `NEUTRALIZED` trials across multiple stochastic seeds, including sham/negative controls and prompt-injection robustness.
+3. **Full Details:** See [`HANDOFF.md`](../HANDOFF.md) and [`output.md`](../output.md).
+
 ## 10. Baseline Comparison Methodology
 
 We compare candidate mechanisms under identical tool sets, capability tokens, and `L1`/`L3`/`L4` policy layers, varying only the provenance/attribution layer:

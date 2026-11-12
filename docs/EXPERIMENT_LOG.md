@@ -1,6 +1,6 @@
 # Experiment Log
 
-This file records all controlled experiments executed in the **Denial Attribution Research** project.
+This file records all controlled experiments executed in the **Denial Attribution Research** project (`EXP-001` through `EXP-008`). For comprehensive tables and analysis, see [`output.md`](../output.md); for onboarding and next steps, see [`HANDOFF.md`](../HANDOFF.md).
 
 **Rules:**
 - Do **not** populate entries with fabricated, estimated, or placeholder results.

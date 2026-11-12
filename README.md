@@ -2,7 +2,9 @@
 
 A reproducible experimental research project investigating denial-specific causal attribution in tool-calling LLM agents.
 
-> **Research & Novelty Disclaimer:** This repository is an active university conference research project. No experimental results have been collected yet, and no novelty claims are established. Counterfactual attribution, denial-aware provenance, provenance graphs, and multi-step attack detection already exist in prior literature (including ARM, AgentSentry, CausalArmor, FIDES, and PCAS). Our central hypothesis—whether a denial-specific causal attribution mechanism can distinguish genuine denial-induced information leakage from benign subsequent actions while detecting delayed and multi-step laundering attacks—remains **unverified** and subject to empirical falsification.
+> **Collaborator Onboarding:** Start with [`HANDOFF.md`](HANDOFF.md) for architecture, setup, known issues, and Phase 5 next steps, and [`output.md`](output.md) for the complete chronological research evidence record.
+>
+> **Research & Novelty Disclaimer:** This repository is an active university conference research project. No novelty claims are established, and Phase 5 (live-LLM evaluation) is **planned, not completed**. All committed results (`EXP-001`–`EXP-008`) use deterministic synthetic policies and simulated tools.
 
 ---
 
@@ -171,8 +173,8 @@ denial-attribution-research/
 
 ## Current Development Status
 
-- **Current Phase:** Phase 4 (Independent Agent Execution & Denial-Feedback Attribution) — complete.
-- **Next Milestone:** Phase 5 — Statistical analysis, ablations, live-LLM trials via `OllamaAgentAdapter`, and novelty reassessment for conference paper drafting.
+- **Completed Phases:** Phase 0 (`da3e1b4`) through Phase 4.3 (`7335414`).
+- **Next Milestone (Planned, Not Completed):** Phase 5 — Finalize the canonicalization Case 5 fix, run live-LLM smoke tests and repeated paired trials via `OllamaAgentAdapter`, and evaluate prompt-injection robustness, latency, and token cost. See [`HANDOFF.md`](HANDOFF.md).
 
 ## Team Handover Instructions
 
