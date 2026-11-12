@@ -121,19 +121,48 @@ class AgentExecutor:
                 break
 
             step_id = f"{branch_name}_s{step_idx}"
+            valid_input_ids = [
+                nid for nid in proposal.input_node_ids if monitor.graph.has_node(nid)
+            ]
             t_m0 = time.perf_counter_ns()
             decision = monitor.evaluate_tool_call(
                 event_id=step_id,
                 tool_name=proposal.tool_name,
                 arguments=proposal.arguments,
-                input_node_ids=list(proposal.input_node_ids),
+                input_node_ids=valid_input_ids,
             )
             monitor_ns += time.perf_counter_ns() - t_m0
 
             if decision.decision == DecisionVerdict.ALLOW:
-                output, trust, overrides = env.execute_tool(
-                    proposal.tool_name, proposal.arguments
-                )
+                try:
+                    output, trust, overrides = env.execute_tool(
+                        proposal.tool_name, proposal.arguments
+                    )
+                except ValueError as exc:
+                    obs = AgentObservation(
+                        step_index=step_idx,
+                        tool_name=proposal.tool_name,
+                        arguments=proposal.arguments,
+                        allowed=False,
+                        output=None,
+                        feedback=f"TOOL_ERROR: {exc}",
+                        data_id=None,
+                    )
+                    memory.record(obs)
+                    trace_steps.append(
+                        TraceStepRecord(
+                            step_id=step_id,
+                            tool_name=proposal.tool_name,
+                            arguments=proposal.arguments,
+                            input_node_ids=list(proposal.input_node_ids),
+                            decision="DENY",
+                            reason=f"Tool execution error: {exc}",
+                            is_protected_sink=proposal.tool_name in _PROTECTED_SINKS,
+                            is_unauthorized_sink=False,
+                            executed=False,
+                        )
+                    )
+                    continue
                 data_id = f"d_{step_id}"
                 t_m1 = time.perf_counter_ns()
                 monitor.record_tool_result(
@@ -143,6 +172,10 @@ class AgentExecutor:
                     default_trust=trust,
                     field_trust_overrides=overrides,
                 )
+                if proposal.tool_name == "read_document" and "path" in proposal.arguments:
+                    monitor.graph.get_node(data_id).metadata["source_id"] = (
+                        f"doc::{proposal.arguments['path']}"
+                    )
                 monitor_ns += time.perf_counter_ns() - t_m1
 
                 if proposal.tool_name not in _PROTECTED_SINKS:

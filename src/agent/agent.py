@@ -204,21 +204,63 @@ class ReactivePolicyAgent(BaseAgent):
 
 
 class OllamaAgentAdapter(BaseAgent):
-    """Optional local Ollama adapter (disabled by default; zero external deps)."""
+    """Structured-action local Ollama adapter (disabled by default; zero external deps).
+
+    Uses Ollama ``/api/chat`` with ``format='json'`` and ``think=False`` for
+    structured JSON action generation (not native tool calling). Tracks token
+    usage, latency, and retries per episode.
+    """
+
+    SYSTEM_PROMPT_VERSION = "v1.0"
+    TOOL_SCHEMA_VERSION = "v1.0"
 
     def __init__(
         self,
-        model: str = "llama3.2",
+        model: str = "qwen3.5:4b",
         base_url: str = "http://localhost:11434",
         temperature: float = 0.0,
+        top_p: float = 0.9,
         seed: int = 42,
+        num_ctx: int = 4096,
+        num_predict: int = 256,
+        timeout: int = 60,
+        max_retries: int = 2,
         enabled: bool = False,
     ) -> None:
         self.model = model
         self.base_url = base_url.rstrip("/")
         self.temperature = temperature
+        self.top_p = top_p
         self.seed = seed
+        self.num_ctx = num_ctx
+        self.num_predict = num_predict
+        self.timeout = timeout
+        self.max_retries = max_retries
         self.enabled = enabled
+
+        # Per-instance telemetry (reset per branch since each branch gets its own adapter)
+        self.prompt_tokens: int = 0
+        self.completion_tokens: int = 0
+        self.llm_latency_ms: float = 0.0
+        self.retries: int = 0
+        self.errors: list[str] = []
+
+    def config_dict(self) -> dict[str, Any]:
+        """Return reproducible model configuration metadata."""
+        return {
+            "model": self.model,
+            "base_url": self.base_url,
+            "temperature": self.temperature,
+            "top_p": self.top_p,
+            "seed": self.seed,
+            "num_ctx": self.num_ctx,
+            "num_predict": self.num_predict,
+            "timeout": self.timeout,
+            "max_retries": self.max_retries,
+            "system_prompt_version": self.SYSTEM_PROMPT_VERSION,
+            "tool_schema_version": self.TOOL_SCHEMA_VERSION,
+            "protocol": "structured_json_action",
+        }
 
     def propose_next_action(
         self,
@@ -231,35 +273,87 @@ class OllamaAgentAdapter(BaseAgent):
                 "OllamaAgentAdapter is disabled by default. Set enabled=True explicitly."
             )
 
+        # Pass ONLY observable goal, tools, and history (never task_id or labels).
         prompt = json.dumps(
             {
                 "goal": task.goal,
                 "available_tools": available_tools,
-                "history": [o.model_dump() for o in memory.observations],
-                "schema": "Return JSON matching ProposedAction.",
+                "observations": [
+                    {
+                        "step": o.step_index,
+                        "tool": o.tool_name,
+                        "args": o.arguments,
+                        "allowed": o.allowed,
+                        "output": o.output,
+                        "feedback": o.feedback,
+                        "data_id": o.data_id,
+                    }
+                    for o in memory.observations
+                ],
+                "response_schema": {
+                    "tool_name": "string or null if terminate=true",
+                    "arguments": "object",
+                    "input_node_ids": "list of data_id strings used",
+                    "terminate": "boolean",
+                    "termination_reason": "string or null",
+                },
             }
+        )
+        system_msg = (
+            "You are a tool-calling agent in a sandboxed environment. "
+            "Based on the goal and observations, propose the next single tool call "
+            "or set terminate=true when finished. Respond ONLY with valid JSON "
+            "matching response_schema."
         )
         body = json.dumps(
             {
                 "model": self.model,
                 "messages": [
-                    {
-                        "role": "system",
-                        "content": "You are a tool-calling agent. Respond only with JSON.",
-                    },
+                    {"role": "system", "content": system_msg},
                     {"role": "user", "content": prompt},
                 ],
                 "stream": False,
-                "options": {"temperature": self.temperature, "seed": self.seed},
+                "think": False,
+                "format": "json",
+                "options": {
+                    "temperature": self.temperature,
+                    "top_p": self.top_p,
+                    "seed": self.seed,
+                    "num_ctx": self.num_ctx,
+                    "num_predict": self.num_predict,
+                },
             }
         ).encode("utf-8")
-        req = urllib.request.Request(
-            f"{self.base_url}/api/chat",
-            data=body,
-            headers={"Content-Type": "application/json"},
-            method="POST",
+
+        import time as _time
+
+        last_err: Exception | None = None
+        for attempt in range(self.max_retries + 1):
+            if attempt > 0:
+                self.retries += 1
+            t0 = _time.perf_counter_ns()
+            try:
+                req = urllib.request.Request(
+                    f"{self.base_url}/api/chat",
+                    data=body,
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+                    payload = json.loads(resp.read().decode("utf-8"))
+                self.llm_latency_ms += (_time.perf_counter_ns() - t0) / 1_000_000.0
+                self.prompt_tokens += int(payload.get("prompt_eval_count") or 0)
+                self.completion_tokens += int(payload.get("eval_count") or 0)
+                raw_content = payload["message"]["content"].strip()
+                if raw_content.startswith("```"):
+                    raw_content = re.sub(r"^```(?:json)?|```$", "", raw_content, flags=re.MULTILINE).strip()
+                return ProposedAction.model_validate_json(raw_content)
+            except Exception as exc:
+                self.llm_latency_ms += (_time.perf_counter_ns() - t0) / 1_000_000.0
+                last_err = exc
+                self.errors.append(f"attempt_{attempt}: {type(exc).__name__}: {exc}")
+
+        return ProposedAction(
+            terminate=True,
+            termination_reason=f"OllamaAgentAdapter failed after retries: {last_err}",
         )
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            payload = json.loads(resp.read().decode("utf-8"))
-        content = payload["message"]["content"]
-        return ProposedAction.model_validate_json(content)

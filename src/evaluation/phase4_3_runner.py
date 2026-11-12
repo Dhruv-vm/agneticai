@@ -170,9 +170,9 @@ def run_canonicalization_audit() -> list[dict[str, Any]]:
     m4b = _make_mon("4b", "branch_b_s0", "search_documents", {"query": "a.txt"}, "d_branch_b_s0", ["/tmp/a.txt"], TrustLevel.TOOL_TRUSTED)
     cases.append({"case": "4_same_doc_different_routes", "expected_same": False, "actual_same": resolve_logical_source("d_branch_a_s0", m1a).logical_id == resolve_logical_source("d_branch_b_s0", m4b).logical_id})
 
-    # 5. Same arguments but genuinely different underlying sources/content (KNOWN DEFECT in canonical.py!)
+    # 5. Same arguments but genuinely different underlying sources/content (KNOWN DEFECT in Phase 4.2 canonical.py!)
     m5b = _make_mon("5b", "branch_b_s0", "read_document", {"path": "/tmp/a.txt"}, "d_branch_b_s0", "DIFFERENT_SECRET", TrustLevel.TOOL_UNTRUSTED)
-    cases.append({"case": "5_same_args_different_underlying_source", "expected_same": False, "actual_same": resolve_logical_source("d_branch_a_s0", m1a).logical_id == resolve_logical_source("d_branch_b_s0", m5b).logical_id})
+    cases.append({"case": "5_same_args_different_underlying_source", "expected_same": False, "actual_same": resolve_logical_source("d_branch_a_s0", m1a, strict_content_trust=False).logical_id == resolve_logical_source("d_branch_b_s0", m5b, strict_content_trust=False).logical_id})
 
     # 6. Nested and reordered arguments
     m6a = _make_mon("6a", "c0", "search_documents", {"a": 1, "b": {"x": 2, "y": 3}}, "d0", [], TrustLevel.TOOL_TRUSTED)
