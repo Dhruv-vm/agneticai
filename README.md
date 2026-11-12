@@ -111,7 +111,9 @@ Do **not** commit `.env` or place real credentials in configuration files or exp
 uv run pytest -v
 ```
 
-Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`, `tests/test_phase2_audit.py`, `tests/test_phase3_attribution.py`, `tests/test_phase3_audit.py`, `tests/test_phase4_agent_execution.py`) runs 43 deterministic unit, scenario, audit, attribution, and independent-agent tests.
+Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`, `tests/test_phase2_audit.py`, `tests/test_phase3_attribution.py`, `tests/test_phase3_audit.py`, `tests/test_phase4_agent_execution.py`, `tests/test_phase4_1_audit.py`) runs 47 deterministic unit, scenario, audit, attribution, and generalization tests.
+
+For the complete chronological research evidence record, see [`output.md`](output.md).
 
 ## How to Execute Experiments
 

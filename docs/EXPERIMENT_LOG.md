@@ -227,6 +227,22 @@ Genuine independent execution exposes Phase 3 `CounterfactualAttributor`'s high 
 
 ---
 
+## EXP-006: Phase 4.1 Challenge Suite, Divergence Diagnosis & Multi-Policy Audit
+
+- **Experiment ID:** EXP-006
+- **Date:** 2026-11-12
+- **Research Objective:** Diagnose Phase 4's `100%` branch divergence rate and test generalization across 44 independent challenge scenarios and 4 distinct agent policies (`ReactivePolicyAgent`, `ConservativeStoppingAgent`, `IndependentRecoveryAgent`, `DenialInsensitiveAgent`).
+- **Configuration:** [`configs/phase4_challenge_tasks.json`](../configs/phase4_challenge_tasks.json) (`seed=2026`, 44 scenarios across 11 dependency structures), scored post-hoc against [`configs/phase4_challenge_labels.json`](../configs/phase4_challenge_labels.json).
+- **Results (`results/phase4_1_audit_results.json`):**
+  - Held-out divergence diagnosis: `raw = 40/40`, `meaningful = 33/40` (7 benign scenarios differed only by `d_branch_a_` vs `d_branch_b_` IDs).
+  - `ReactivePolicyAgent`: `P4_Acc = 0.900`, `P4_Prec = 0.833`, `P4_Rec = 1.000`, `P4_FAR = 0.167` (`4/24` false positives on `CH_BENIGN_SENSITIVE_WORDS_01..04`), `P4_Amb = 0.068`.
+  - `ConservativeStoppingAgent`, `IndependentRecoveryAgent`, `DenialInsensitiveAgent`: `P4_Acc = 1.000`, `P4_FAR = 0.000`, `MeaningfulDiv = 0.000`.
+  - Intervention validity: `0` invalid interventions across `176` paired runs.
+- **Command:** `uv run python -m src.evaluation.phase4_audit`
+- **Result Artifacts:** `results/phase4_1_audit_results.json`, `results/phase4_1_policy_comparison.csv`, `results/phase4_1_challenge_per_scenario.csv`
+
+---
+
 ## EXP-001: Phase 1 Deterministic Baseline Comparison (L2 vs. L2G)
 
 - **Experiment ID:** EXP-001

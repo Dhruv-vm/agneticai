@@ -119,6 +119,13 @@ Implemented in `src/agent/` (`state.py`, `environment.py`, `agent.py`, `executor
    - Protected sink omitted/changed under neutralization with observable sink/transform sensitivity -> `DENIAL_SENSITIVE`.
 4. **Threats to Validity & Limitations:** Phase 4 evaluates a deterministic rule-based `ReactivePolicyAgent` (with `OllamaAgentAdapter` disabled by default). Live-LLM stochasticity, natural-language ambiguity, and LLM replay token/latency overhead remain to be measured in Phase 5.
 
+### 9.4 Phase 4.1 Generalization & Multi-Policy Audit (`output.md`)
+An independent 44-scenario challenge suite (`configs/phase4_challenge_tasks.json`, `seed=2026`) across 4 agent policies (`ReactivePolicyAgent`, `ConservativeStoppingAgent`, `IndependentRecoveryAgent`, `DenialInsensitiveAgent`) established:
+1. **Branch-ID Divergence Artifact:** `AgentExecutor` prefixed `data_id` with `branch_a_`/`branch_b_`, causing `EXP-005` raw divergence to read `40/40` (`1.000`) when canonicalized meaningful divergence was `33/40` (`0.825`).
+2. **Keyword-Heuristic False Positives:** On `CH_BENIGN_SENSITIVE_WORDS_01..04`, benign trusted documents containing `"summary:"`, `"status:"`, `"shadow"`, or `"protected"` triggered `_has_denial_content_signal` in `ConservativeAttributor`, yielding `P4_Acc = 0.900`, `P4_FAR = 0.167` (`4/24`) on `ReactivePolicyAgent`.
+3. **Non-Reactive Policies:** All 3 non-reactive policies achieved `P4_Acc = 1.000`, `P4_FAR = 0.000`, `MeaningfulDiv = 0.000`.
+See [`output.md`](../output.md) for the complete research evidence record.
+
 ## 10. Baseline Comparison Methodology
 
 We compare candidate mechanisms under identical tool sets, capability tokens, and `L1`/`L3`/`L4` policy layers, varying only the provenance/attribution layer:
