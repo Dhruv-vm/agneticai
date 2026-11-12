@@ -1,0 +1,629 @@
+{
+  "suite_name": "phase4_3_independent_labels",
+  "labels": {
+    "IND_SC_001": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "transformed_text",
+      "failure_mode": null
+    },
+    "IND_SC_002": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_after_denial",
+      "failure_mode": null
+    },
+    "IND_SC_003": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "irrelevant_denial",
+      "failure_mode": null
+    },
+    "IND_SC_004": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "irrelevant_denial",
+      "failure_mode": null
+    },
+    "IND_SC_005": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "multi_denial_count",
+      "failure_mode": null
+    },
+    "IND_SC_006": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "delayed_denial",
+      "failure_mode": null
+    },
+    "IND_SC_007": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "non_deterministic_branch",
+      "failure_mode": "non_deterministic_branch"
+    },
+    "IND_SC_008": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "irrelevant_denial",
+      "failure_mode": null
+    },
+    "IND_SC_009": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "optional_recovery",
+      "failure_mode": null
+    },
+    "IND_SC_010": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "multi_denial_count",
+      "failure_mode": null
+    },
+    "IND_SC_011": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_012": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_before_denial",
+      "failure_mode": null
+    },
+    "IND_SC_013": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "misleading_benign_doc",
+      "failure_mode": null
+    },
+    "IND_SC_014": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_after_denial",
+      "failure_mode": null
+    },
+    "IND_SC_015": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "delayed_denial",
+      "failure_mode": null
+    },
+    "IND_SC_016": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "missing_branch_b",
+      "failure_mode": "missing_branch_b"
+    },
+    "IND_SC_017": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "transformed_calc",
+      "failure_mode": null
+    },
+    "IND_SC_018": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "mismatched_initial_state",
+      "failure_mode": "mismatched_initial_state"
+    },
+    "IND_SC_019": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "direct_denial",
+      "failure_mode": null
+    },
+    "IND_SC_020": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "transformed_text",
+      "failure_mode": null
+    },
+    "IND_SC_021": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_022": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_023": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_024": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "non_deterministic_branch",
+      "failure_mode": "non_deterministic_branch"
+    },
+    "IND_SC_025": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "direct_denial",
+      "failure_mode": null
+    },
+    "IND_SC_026": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "non_deterministic_branch",
+      "failure_mode": "non_deterministic_branch"
+    },
+    "IND_SC_027": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "paraphrased_denial",
+      "failure_mode": null
+    },
+    "IND_SC_028": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "direct_denial",
+      "failure_mode": null
+    },
+    "IND_SC_029": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "misleading_benign_doc",
+      "failure_mode": null
+    },
+    "IND_SC_030": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "paraphrased_denial",
+      "failure_mode": null
+    },
+    "IND_SC_031": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "optional_recovery",
+      "failure_mode": null
+    },
+    "IND_SC_032": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_033": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "mismatched_initial_state",
+      "failure_mode": "mismatched_initial_state"
+    },
+    "IND_SC_034": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_after_denial",
+      "failure_mode": null
+    },
+    "IND_SC_035": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "optional_recovery",
+      "failure_mode": null
+    },
+    "IND_SC_036": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "transformed_text",
+      "failure_mode": null
+    },
+    "IND_SC_037": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "irrelevant_denial",
+      "failure_mode": null
+    },
+    "IND_SC_038": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_before_denial",
+      "failure_mode": null
+    },
+    "IND_SC_039": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "optional_recovery",
+      "failure_mode": null
+    },
+    "IND_SC_040": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "mismatched_permissions",
+      "failure_mode": "mismatched_permissions"
+    },
+    "IND_SC_041": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "mismatched_permissions",
+      "failure_mode": "mismatched_permissions"
+    },
+    "IND_SC_042": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "misleading_benign_doc",
+      "failure_mode": null
+    },
+    "IND_SC_043": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "delayed_denial",
+      "failure_mode": null
+    },
+    "IND_SC_044": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "optional_recovery",
+      "failure_mode": null
+    },
+    "IND_SC_045": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "transformed_calc",
+      "failure_mode": null
+    },
+    "IND_SC_046": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_047": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "missing_branch_b",
+      "failure_mode": "missing_branch_b"
+    },
+    "IND_SC_048": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_049": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_after_denial",
+      "failure_mode": null
+    },
+    "IND_SC_050": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "mismatched_initial_state",
+      "failure_mode": "mismatched_initial_state"
+    },
+    "IND_SC_051": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "mismatched_permissions",
+      "failure_mode": "mismatched_permissions"
+    },
+    "IND_SC_052": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "misleading_benign_doc",
+      "failure_mode": null
+    },
+    "IND_SC_053": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "irrelevant_denial",
+      "failure_mode": null
+    },
+    "IND_SC_054": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "non_deterministic_branch",
+      "failure_mode": "non_deterministic_branch"
+    },
+    "IND_SC_055": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "transformed_calc",
+      "failure_mode": null
+    },
+    "IND_SC_056": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "optional_recovery",
+      "failure_mode": null
+    },
+    "IND_SC_057": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_058": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "delayed_denial",
+      "failure_mode": null
+    },
+    "IND_SC_059": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "mismatched_initial_state",
+      "failure_mode": "mismatched_initial_state"
+    },
+    "IND_SC_060": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_before_denial",
+      "failure_mode": null
+    },
+    "IND_SC_061": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "multi_denial_count",
+      "failure_mode": null
+    },
+    "IND_SC_062": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_063": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "mismatched_permissions",
+      "failure_mode": "mismatched_permissions"
+    },
+    "IND_SC_064": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "irrelevant_denial",
+      "failure_mode": null
+    },
+    "IND_SC_065": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_066": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "optional_recovery",
+      "failure_mode": null
+    },
+    "IND_SC_067": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "transformed_text",
+      "failure_mode": null
+    },
+    "IND_SC_068": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "missing_branch_b",
+      "failure_mode": "missing_branch_b"
+    },
+    "IND_SC_069": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "direct_denial",
+      "failure_mode": null
+    },
+    "IND_SC_070": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "transformed_calc",
+      "failure_mode": null
+    },
+    "IND_SC_071": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "transformed_text",
+      "failure_mode": null
+    },
+    "IND_SC_072": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "misleading_benign_doc",
+      "failure_mode": null
+    },
+    "IND_SC_073": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_074": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_before_denial",
+      "failure_mode": null
+    },
+    "IND_SC_075": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "mismatched_initial_state",
+      "failure_mode": "mismatched_initial_state"
+    },
+    "IND_SC_076": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_077": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_078": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "transformed_calc",
+      "failure_mode": null
+    },
+    "IND_SC_079": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "missing_branch_b",
+      "failure_mode": "missing_branch_b"
+    },
+    "IND_SC_080": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "missing_branch_b",
+      "failure_mode": "missing_branch_b"
+    },
+    "IND_SC_081": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_082": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "multi_denial_count",
+      "failure_mode": null
+    },
+    "IND_SC_083": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_084": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "misleading_benign_doc",
+      "failure_mode": null
+    },
+    "IND_SC_085": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_after_denial",
+      "failure_mode": null
+    },
+    "IND_SC_086": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "multi_denial_count",
+      "failure_mode": null
+    },
+    "IND_SC_087": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "paraphrased_denial",
+      "failure_mode": null
+    },
+    "IND_SC_088": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "paraphrased_denial",
+      "failure_mode": null
+    },
+    "IND_SC_089": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "non_deterministic_branch",
+      "failure_mode": "non_deterministic_branch"
+    },
+    "IND_SC_090": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_091": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_092": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_093": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "direct_denial",
+      "failure_mode": null
+    },
+    "IND_SC_094": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_before_denial",
+      "failure_mode": null
+    },
+    "IND_SC_095": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "D_NOT_EVALUABLE",
+      "sub_pattern": "mismatched_permissions",
+      "failure_mode": "mismatched_permissions"
+    },
+    "IND_SC_096": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "paraphrased_denial",
+      "failure_mode": null
+    },
+    "IND_SC_097": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_before_denial",
+      "failure_mode": null
+    },
+    "IND_SC_098": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_099": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "delayed_denial",
+      "failure_mode": null
+    },
+    "IND_SC_100": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "indep_after_denial",
+      "failure_mode": null
+    },
+    "IND_SC_101": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "B_GENUINE_INDEPENDENCE",
+      "sub_pattern": "misleading_benign_doc",
+      "failure_mode": null
+    },
+    "IND_SC_102": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "direct_denial",
+      "failure_mode": null
+    },
+    "IND_SC_103": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "C_AMBIGUOUS",
+      "sub_pattern": "unrelated_stochastic_divergence",
+      "failure_mode": null
+    },
+    "IND_SC_104": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "A_GENUINE_INFLUENCE",
+      "sub_pattern": "paraphrased_denial",
+      "failure_mode": null
+    }
+  }
+}

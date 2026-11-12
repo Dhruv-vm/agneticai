@@ -1,0 +1,6 @@
+control,expected,predicted,passed
+sham_intervention,DENIAL_INDEPENDENT,DENIAL_INDEPENDENT,True
+positive_control,DENIAL_SENSITIVE,DENIAL_SENSITIVE,True
+negative_control,DENIAL_INDEPENDENT,DENIAL_INDEPENDENT,True
+independent_source_control,DENIAL_INDEPENDENT,DENIAL_INDEPENDENT,True
+repeated_execution_5_seeds,variability_recorded,"AMBIGUOUS,AMBIGUOUS,AMBIGUOUS,AMBIGUOUS,AMBIGUOUS",True

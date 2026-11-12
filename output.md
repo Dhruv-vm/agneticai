@@ -186,3 +186,38 @@
 - **Command:** `uv run python -m src.evaluation.phase4_2_runner`
 - **Artifacts:** `results/phase4_2_results.json`, `results/phase4_2_ablation_summary.csv`, `results/phase4_2_policy_comparison.csv`, `results/phase4_2_multi_denial.csv`.
 - **Limitation:** `E_COMBINED` and `G_COMBINED_NO_PROVENANCE` tie on this challenge set because `ReactivePolicyAgent` omits the sink in Branch B; provenance becomes decisive when both branches execute the same tool with different sources (`HO_05`). Live-LLM experiments remain for Phase 5.
+
+---
+
+## M. Phase 4.3 — Independent Evaluation and Generalization Audit (`EXP-008`)
+
+### 1. Objective, Dataset Construction & Leakage Controls
+- **Dataset (`configs/phase4_3_tasks.json`, `seed=43127`, `n=104`):** Opaque IDs (`IND_SC_001`..`IND_SC_104`) shuffled across 4 classes: `DENIAL_SENSITIVE` (`32`), `DENIAL_INDEPENDENT` (`32`), `AMBIGUOUS` (`20`), and `NOT_EVALUABLE` (`20`).
+- **Leakage Controls:** Ground-truth labels (`configs/phase4_3_labels.json`) are strictly separated; `AgentTask` and `EnvironmentState` (`extra="forbid"`) reject injected label keys.
+- **Metric Audit Finding:** Phase 4.2's `_score()` excluded `gt == "AMBIGUOUS"` from `tp+fp+tn+fn`, which allowed `A_TRACE_DIVERGENCE_ONLY` to report `1.000` accuracy despite misclassifying `AMBIGUOUS` cases. Phase 4.3 reports full 4×4 confusion matrices, macro-F1, coverage, selective accuracy, and 95% Wilson CIs (`src/evaluation/phase4_3_metrics.py`).
+
+### 2. Primary `E_COMBINED` Results (`ReactivePolicyAgent`, `n=104`, `results/phase4_3_results.json`)
+- **4-Class Overall Accuracy:** `0.9615` (`100/104`), 95% Wilson CI `[0.9053, 0.9849]`
+- **Macro-F1:** `0.9575`, **Balanced Accuracy:** `0.9500`
+- **Coverage:** `0.6538` (`68/104`), **Selective Accuracy:** `0.9412` (`64/68`, CI `[0.8583, 0.9769]`)
+- **Binary `DENIAL_SENSITIVE` Precision / Recall / F1:** `1.000` / `1.000` / `1.000`, **FAR on `DENIAL_INDEPENDENT`:** `0.000`
+- **Failure Analysis (4/104 errors):** All 4 errors are `AMBIGUOUS` greeting scenarios whose modulo-3 greeting collided across branches (`(seed + len(fb)) % 3 == seed % 3`), producing identical traces (`DENIAL_INDEPENDENT`).
+
+### 3. Ten-Way Ablation Study (`results/phase4_3_ablation.csv`)
+- `E_COMBINED`, `F_COMBINED_NO_TEMPORAL`, `G_COMBINED_NO_PROVENANCE`, `I_WITHOUT_COUNTER_EVIDENCE`: `4ClassAcc = 0.9615`, `MacroF1 = 0.9575`, `FAR = 0.000`.
+- `H_WITHOUT_ALTERNATIVE_EXPLANATIONS`: drops to `4ClassAcc = 0.8077` (all 16 divergent `AMBIGUOUS` cases misclassified as `DENIAL_SENSITIVE`).
+- `J_WITHOUT_CANONICAL_IDENTITY`: drops to `4ClassAcc = 0.7115`, `FAR = 0.8125`.
+- `A_TRACE_DIVERGENCE_ONLY`: `0.8077`; `B_PROVENANCE_ONLY` & `D_INDEPENDENT_SOURCE_ONLY`: `0.7500` (`FAR = 0.1875`); `C_DENIAL_EVENT_ONLY`: `0.5000` (`FAR = 1.000`).
+
+### 4. Six-Policy Comparison (`results/phase4_3_policy_comparison.csv`)
+- `ReactivePolicyAgent`: `4ClassAcc = 0.9615`, `FAR = 0.000`
+- `ConservativeStoppingAgent`, `IndependentRecoveryAgent`, `DenialInsensitiveAgent`, `MemoryMediatedAgent`: `4ClassAcc = 1.000`, `FAR = 0.000`
+- `SourcePrioritizationAgent`: `4ClassAcc = 0.7404`, `FAR = 0.3214` (reacts to denial feedback when no independent `data_id` is available yet, demonstrating that partially reactive policies require policy-aware ground truth).
+
+### 5. Canonicalization & Intervention Controls
+- **Canonicalization (`results/phase4_3_canonicalization.csv`):** `11/12` passed. **Defect confirmed on Case 5 (`5_same_args_different_underlying_source`):** `resolve_logical_source` keys on `(tool, args)` without a content/trust digest, so identical calls returning different content/trust are assigned the same `logical_id`.
+- **Intervention Controls (`results/phase4_3_intervention_controls.csv`):** `5/5` passed (`sham_intervention`, `positive_control`, `negative_control`, `independent_source_control`, `repeated_execution_5_seeds`).
+
+### 6. Reproducibility & Limitations
+- **Command:** `uv run python -m src.evaluation.phase4_3_runner`
+- **Limitations:** Synthetic deterministic policies only; `canonical.py` content/trust defect remains unfixed pending Phase 5; live-LLM evaluation is required next.

@@ -1,0 +1,1680 @@
+{
+  "tasks_sha256": "0778ec46fbd6b122",
+  "seed": 43127,
+  "total_scenarios": 104,
+  "primary_e_combined_metrics": {
+    "ablation_variant": "E_COMBINED",
+    "total": 104,
+    "confusion_matrix_4x4": {
+      "DENIAL_SENSITIVE": {
+        "DENIAL_SENSITIVE": 32,
+        "DENIAL_INDEPENDENT": 0,
+        "AMBIGUOUS": 0,
+        "NOT_EVALUABLE": 0
+      },
+      "DENIAL_INDEPENDENT": {
+        "DENIAL_SENSITIVE": 0,
+        "DENIAL_INDEPENDENT": 32,
+        "AMBIGUOUS": 0,
+        "NOT_EVALUABLE": 0
+      },
+      "AMBIGUOUS": {
+        "DENIAL_SENSITIVE": 0,
+        "DENIAL_INDEPENDENT": 4,
+        "AMBIGUOUS": 16,
+        "NOT_EVALUABLE": 0
+      },
+      "NOT_EVALUABLE": {
+        "DENIAL_SENSITIVE": 0,
+        "DENIAL_INDEPENDENT": 0,
+        "AMBIGUOUS": 0,
+        "NOT_EVALUABLE": 20
+      }
+    },
+    "overall_4class_accuracy": 0.9615,
+    "overall_4class_accuracy_ci95": [
+      0.9053,
+      0.9849
+    ],
+    "macro_f1": 0.9575,
+    "balanced_accuracy": 0.95,
+    "per_class": {
+      "DENIAL_SENSITIVE": {
+        "support": 32,
+        "tp": 32,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "DENIAL_INDEPENDENT": {
+        "support": 32,
+        "tp": 32,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.8889,
+        "recall": 1.0,
+        "f1": 0.9412
+      },
+      "AMBIGUOUS": {
+        "support": 20,
+        "tp": 16,
+        "fp": 0,
+        "fn": 4,
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1": 0.8889
+      },
+      "NOT_EVALUABLE": {
+        "support": 20,
+        "tp": 20,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "binary_denial_sensitive_precision": 1.0,
+    "binary_denial_sensitive_recall": 1.0,
+    "binary_denial_sensitive_f1": 1.0,
+    "false_attribution_rate_on_independent": 0.0,
+    "coverage": 0.6538,
+    "selective_accuracy": 0.9412,
+    "selective_accuracy_ci95": [
+      0.8583,
+      0.9769
+    ],
+    "ambiguous_rate": 0.1538,
+    "not_evaluable_rate": 0.1923
+  },
+  "ablation_study_A_to_J": [
+    {
+      "ablation_variant": "A_TRACE_DIVERGENCE_ONLY",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 32,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 16,
+          "DENIAL_INDEPENDENT": 4,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.8077,
+      "overall_4class_accuracy_ci95": [
+        0.7215,
+        0.8719
+      ],
+      "macro_f1": 0.9137,
+      "balanced_accuracy": 0.75,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 16,
+          "fn": 0,
+          "precision": 0.6667,
+          "recall": 1.0,
+          "f1": 0.8
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 32,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.8889,
+          "recall": 1.0,
+          "f1": 0.9412
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 0,
+          "fp": 0,
+          "fn": 20,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 0.6667,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 0.8,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.8077,
+      "selective_accuracy": 0.7619,
+      "selective_accuracy_ci95": [
+        0.6606,
+        0.8403
+      ],
+      "ambiguous_rate": 0.0,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "ablation_variant": "B_PROVENANCE_ONLY",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 6,
+          "DENIAL_INDEPENDENT": 26,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 20,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.75,
+      "overall_4class_accuracy_ci95": [
+        0.6589,
+        0.8233
+      ],
+      "macro_f1": 0.8692,
+      "balanced_accuracy": 0.7031,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 26,
+          "fn": 0,
+          "precision": 0.5517,
+          "recall": 1.0,
+          "f1": 0.7111
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 26,
+          "fp": 0,
+          "fn": 6,
+          "precision": 1.0,
+          "recall": 0.8125,
+          "f1": 0.8966
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 0,
+          "fp": 0,
+          "fn": 20,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 0.5517,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 0.7111,
+      "false_attribution_rate_on_independent": 0.1875,
+      "coverage": 0.8077,
+      "selective_accuracy": 0.6905,
+      "selective_accuracy_ci95": [
+        0.5851,
+        0.7792
+      ],
+      "ambiguous_rate": 0.0,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "ablation_variant": "C_DENIAL_EVENT_ONLY",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 20,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.5,
+      "overall_4class_accuracy_ci95": [
+        0.4056,
+        0.5944
+      ],
+      "macro_f1": 0.7758,
+      "balanced_accuracy": 0.5,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 52,
+          "fn": 0,
+          "precision": 0.381,
+          "recall": 1.0,
+          "f1": 0.5517
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 0,
+          "fp": 0,
+          "fn": 32,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 0,
+          "fp": 0,
+          "fn": 20,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 0.381,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 0.5517,
+      "false_attribution_rate_on_independent": 1.0,
+      "coverage": 0.8077,
+      "selective_accuracy": 0.381,
+      "selective_accuracy_ci95": [
+        0.2845,
+        0.4878
+      ],
+      "ambiguous_rate": 0.0,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "ablation_variant": "D_INDEPENDENT_SOURCE_ONLY",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 6,
+          "DENIAL_INDEPENDENT": 26,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 20,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.75,
+      "overall_4class_accuracy_ci95": [
+        0.6589,
+        0.8233
+      ],
+      "macro_f1": 0.8692,
+      "balanced_accuracy": 0.7031,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 26,
+          "fn": 0,
+          "precision": 0.5517,
+          "recall": 1.0,
+          "f1": 0.7111
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 26,
+          "fp": 0,
+          "fn": 6,
+          "precision": 1.0,
+          "recall": 0.8125,
+          "f1": 0.8966
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 0,
+          "fp": 0,
+          "fn": 20,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 0.5517,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 0.7111,
+      "false_attribution_rate_on_independent": 0.1875,
+      "coverage": 0.8077,
+      "selective_accuracy": 0.6905,
+      "selective_accuracy_ci95": [
+        0.5851,
+        0.7792
+      ],
+      "ambiguous_rate": 0.0,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "ablation_variant": "E_COMBINED",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 32,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 4,
+          "AMBIGUOUS": 16,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.9615,
+      "overall_4class_accuracy_ci95": [
+        0.9053,
+        0.9849
+      ],
+      "macro_f1": 0.9575,
+      "balanced_accuracy": 0.95,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 32,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.8889,
+          "recall": 1.0,
+          "f1": 0.9412
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 16,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8889
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 1.0,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 1.0,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.6538,
+      "selective_accuracy": 0.9412,
+      "selective_accuracy_ci95": [
+        0.8583,
+        0.9769
+      ],
+      "ambiguous_rate": 0.1538,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "ablation_variant": "F_COMBINED_NO_TEMPORAL",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 32,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 4,
+          "AMBIGUOUS": 16,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.9615,
+      "overall_4class_accuracy_ci95": [
+        0.9053,
+        0.9849
+      ],
+      "macro_f1": 0.9575,
+      "balanced_accuracy": 0.95,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 32,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.8889,
+          "recall": 1.0,
+          "f1": 0.9412
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 16,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8889
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 1.0,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 1.0,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.6538,
+      "selective_accuracy": 0.9412,
+      "selective_accuracy_ci95": [
+        0.8583,
+        0.9769
+      ],
+      "ambiguous_rate": 0.1538,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "ablation_variant": "G_COMBINED_NO_PROVENANCE",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 32,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 4,
+          "AMBIGUOUS": 16,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.9615,
+      "overall_4class_accuracy_ci95": [
+        0.9053,
+        0.9849
+      ],
+      "macro_f1": 0.9575,
+      "balanced_accuracy": 0.95,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 32,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.8889,
+          "recall": 1.0,
+          "f1": 0.9412
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 16,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8889
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 1.0,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 1.0,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.6538,
+      "selective_accuracy": 0.9412,
+      "selective_accuracy_ci95": [
+        0.8583,
+        0.9769
+      ],
+      "ambiguous_rate": 0.1538,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "ablation_variant": "H_WITHOUT_ALTERNATIVE_EXPLANATIONS",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 32,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 16,
+          "DENIAL_INDEPENDENT": 4,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.8077,
+      "overall_4class_accuracy_ci95": [
+        0.7215,
+        0.8719
+      ],
+      "macro_f1": 0.9137,
+      "balanced_accuracy": 0.75,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 16,
+          "fn": 0,
+          "precision": 0.6667,
+          "recall": 1.0,
+          "f1": 0.8
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 32,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.8889,
+          "recall": 1.0,
+          "f1": 0.9412
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 0,
+          "fp": 0,
+          "fn": 20,
+          "precision": null,
+          "recall": 0.0,
+          "f1": null
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 0.6667,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 0.8,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.8077,
+      "selective_accuracy": 0.7619,
+      "selective_accuracy_ci95": [
+        0.6606,
+        0.8403
+      ],
+      "ambiguous_rate": 0.0,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "ablation_variant": "I_WITHOUT_COUNTER_EVIDENCE",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 32,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 4,
+          "AMBIGUOUS": 16,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.9615,
+      "overall_4class_accuracy_ci95": [
+        0.9053,
+        0.9849
+      ],
+      "macro_f1": 0.9575,
+      "balanced_accuracy": 0.95,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 32,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.8889,
+          "recall": 1.0,
+          "f1": 0.9412
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 16,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8889
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 1.0,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 1.0,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.6538,
+      "selective_accuracy": 0.9412,
+      "selective_accuracy_ci95": [
+        0.8583,
+        0.9769
+      ],
+      "ambiguous_rate": 0.1538,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "ablation_variant": "J_WITHOUT_CANONICAL_IDENTITY",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 26,
+          "DENIAL_INDEPENDENT": 6,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 4,
+          "AMBIGUOUS": 16,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.7115,
+      "overall_4class_accuracy_ci95": [
+        0.6182,
+        0.7898
+      ],
+      "macro_f1": 0.7214,
+      "balanced_accuracy": 0.7469,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 26,
+          "fn": 0,
+          "precision": 0.5517,
+          "recall": 1.0,
+          "f1": 0.7111
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 6,
+          "fp": 4,
+          "fn": 26,
+          "precision": 0.6,
+          "recall": 0.1875,
+          "f1": 0.2857
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 16,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8889
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 0.5517,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 0.7111,
+      "false_attribution_rate_on_independent": 0.8125,
+      "coverage": 0.6538,
+      "selective_accuracy": 0.5588,
+      "selective_accuracy_ci95": [
+        0.4408,
+        0.6705
+      ],
+      "ambiguous_rate": 0.1538,
+      "not_evaluable_rate": 0.1923
+    }
+  ],
+  "policy_comparison_6_policies": [
+    {
+      "policy_name": "ReactivePolicyAgent",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 32,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 32,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 4,
+          "AMBIGUOUS": 16,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.9615,
+      "overall_4class_accuracy_ci95": [
+        0.9053,
+        0.9849
+      ],
+      "macro_f1": 0.9575,
+      "balanced_accuracy": 0.95,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 32,
+          "tp": 32,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 32,
+          "tp": 32,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.8889,
+          "recall": 1.0,
+          "f1": 0.9412
+        },
+        "AMBIGUOUS": {
+          "support": 20,
+          "tp": 16,
+          "fp": 0,
+          "fn": 4,
+          "precision": 1.0,
+          "recall": 0.8,
+          "f1": 0.8889
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 1.0,
+      "binary_denial_sensitive_recall": 1.0,
+      "binary_denial_sensitive_f1": 1.0,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.6538,
+      "selective_accuracy": 0.9412,
+      "selective_accuracy_ci95": [
+        0.8583,
+        0.9769
+      ],
+      "ambiguous_rate": 0.1538,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "policy_name": "ConservativeStoppingAgent",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 84,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 1.0,
+      "overall_4class_accuracy_ci95": [
+        0.9644,
+        1.0
+      ],
+      "macro_f1": 1.0,
+      "balanced_accuracy": 1.0,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 84,
+          "tp": 84,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "AMBIGUOUS": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": null,
+      "binary_denial_sensitive_recall": null,
+      "binary_denial_sensitive_f1": null,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.8077,
+      "selective_accuracy": 1.0,
+      "selective_accuracy_ci95": [
+        0.9563,
+        1.0
+      ],
+      "ambiguous_rate": 0.0,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "policy_name": "IndependentRecoveryAgent",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 84,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 1.0,
+      "overall_4class_accuracy_ci95": [
+        0.9644,
+        1.0
+      ],
+      "macro_f1": 1.0,
+      "balanced_accuracy": 1.0,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 84,
+          "tp": 84,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "AMBIGUOUS": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": null,
+      "binary_denial_sensitive_recall": null,
+      "binary_denial_sensitive_f1": null,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.8077,
+      "selective_accuracy": 1.0,
+      "selective_accuracy_ci95": [
+        0.9563,
+        1.0
+      ],
+      "ambiguous_rate": 0.0,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "policy_name": "DenialInsensitiveAgent",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 84,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 1.0,
+      "overall_4class_accuracy_ci95": [
+        0.9644,
+        1.0
+      ],
+      "macro_f1": 1.0,
+      "balanced_accuracy": 1.0,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 84,
+          "tp": 84,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "AMBIGUOUS": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": null,
+      "binary_denial_sensitive_recall": null,
+      "binary_denial_sensitive_f1": null,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.8077,
+      "selective_accuracy": 1.0,
+      "selective_accuracy_ci95": [
+        0.9563,
+        1.0
+      ],
+      "ambiguous_rate": 0.0,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "policy_name": "MemoryMediatedAgent",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 84,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 1.0,
+      "overall_4class_accuracy_ci95": [
+        0.9644,
+        1.0
+      ],
+      "macro_f1": 1.0,
+      "balanced_accuracy": 1.0,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 84,
+          "tp": 84,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "AMBIGUOUS": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": null,
+      "binary_denial_sensitive_recall": null,
+      "binary_denial_sensitive_f1": null,
+      "false_attribution_rate_on_independent": 0.0,
+      "coverage": 0.8077,
+      "selective_accuracy": 1.0,
+      "selective_accuracy_ci95": [
+        0.9563,
+        1.0
+      ],
+      "ambiguous_rate": 0.0,
+      "not_evaluable_rate": 0.1923
+    },
+    {
+      "policy_name": "SourcePrioritizationAgent",
+      "total": 104,
+      "confusion_matrix_4x4": {
+        "DENIAL_SENSITIVE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "DENIAL_INDEPENDENT": {
+          "DENIAL_SENSITIVE": 27,
+          "DENIAL_INDEPENDENT": 57,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "AMBIGUOUS": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 0
+        },
+        "NOT_EVALUABLE": {
+          "DENIAL_SENSITIVE": 0,
+          "DENIAL_INDEPENDENT": 0,
+          "AMBIGUOUS": 0,
+          "NOT_EVALUABLE": 20
+        }
+      },
+      "overall_4class_accuracy": 0.7404,
+      "overall_4class_accuracy_ci95": [
+        0.6486,
+        0.815
+      ],
+      "macro_f1": 0.9042,
+      "balanced_accuracy": 0.8393,
+      "per_class": {
+        "DENIAL_SENSITIVE": {
+          "support": 0,
+          "tp": 0,
+          "fp": 27,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": null,
+          "f1": null
+        },
+        "DENIAL_INDEPENDENT": {
+          "support": 84,
+          "tp": 57,
+          "fp": 0,
+          "fn": 27,
+          "precision": 1.0,
+          "recall": 0.6786,
+          "f1": 0.8085
+        },
+        "AMBIGUOUS": {
+          "support": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "NOT_EVALUABLE": {
+          "support": 20,
+          "tp": 20,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "binary_denial_sensitive_precision": 0.0,
+      "binary_denial_sensitive_recall": null,
+      "binary_denial_sensitive_f1": null,
+      "false_attribution_rate_on_independent": 0.3214,
+      "coverage": 0.8077,
+      "selective_accuracy": 0.6786,
+      "selective_accuracy_ci95": [
+        0.5728,
+        0.7687
+      ],
+      "ambiguous_rate": 0.0,
+      "not_evaluable_rate": 0.1923
+    }
+  ],
+  "pooled_across_policies": {
+    "total": 624,
+    "confusion_matrix_4x4": {
+      "DENIAL_SENSITIVE": {
+        "DENIAL_SENSITIVE": 32,
+        "DENIAL_INDEPENDENT": 0,
+        "AMBIGUOUS": 0,
+        "NOT_EVALUABLE": 0
+      },
+      "DENIAL_INDEPENDENT": {
+        "DENIAL_SENSITIVE": 27,
+        "DENIAL_INDEPENDENT": 425,
+        "AMBIGUOUS": 0,
+        "NOT_EVALUABLE": 0
+      },
+      "AMBIGUOUS": {
+        "DENIAL_SENSITIVE": 0,
+        "DENIAL_INDEPENDENT": 4,
+        "AMBIGUOUS": 16,
+        "NOT_EVALUABLE": 0
+      },
+      "NOT_EVALUABLE": {
+        "DENIAL_SENSITIVE": 0,
+        "DENIAL_INDEPENDENT": 0,
+        "AMBIGUOUS": 0,
+        "NOT_EVALUABLE": 120
+      }
+    },
+    "overall_4class_accuracy": 0.9503,
+    "overall_4class_accuracy_ci95": [
+      0.9303,
+      0.9648
+    ],
+    "macro_f1": 0.8892,
+    "balanced_accuracy": 0.9351,
+    "per_class": {
+      "DENIAL_SENSITIVE": {
+        "support": 32,
+        "tp": 32,
+        "fp": 27,
+        "fn": 0,
+        "precision": 0.5424,
+        "recall": 1.0,
+        "f1": 0.7033
+      },
+      "DENIAL_INDEPENDENT": {
+        "support": 452,
+        "tp": 425,
+        "fp": 4,
+        "fn": 27,
+        "precision": 0.9907,
+        "recall": 0.9403,
+        "f1": 0.9648
+      },
+      "AMBIGUOUS": {
+        "support": 20,
+        "tp": 16,
+        "fp": 0,
+        "fn": 4,
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1": 0.8889
+      },
+      "NOT_EVALUABLE": {
+        "support": 120,
+        "tp": 120,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "binary_denial_sensitive_precision": 0.5424,
+    "binary_denial_sensitive_recall": 1.0,
+    "binary_denial_sensitive_f1": 0.7033,
+    "false_attribution_rate_on_independent": 0.0597,
+    "coverage": 0.7821,
+    "selective_accuracy": 0.9365,
+    "selective_accuracy_ci95": [
+      0.9112,
+      0.9549
+    ],
+    "ambiguous_rate": 0.0256,
+    "not_evaluable_rate": 0.1923
+  },
+  "canonicalization_audit": [
+    {
+      "case": "1_identical_logical_across_branches",
+      "expected_same": true,
+      "actual_same": true,
+      "passed": true
+    },
+    {
+      "case": "2_different_args_same_tool",
+      "expected_same": false,
+      "actual_same": false,
+      "passed": true
+    },
+    {
+      "case": "3_different_docs_identical_content",
+      "expected_same": false,
+      "actual_same": false,
+      "passed": true
+    },
+    {
+      "case": "4_same_doc_different_routes",
+      "expected_same": false,
+      "actual_same": false,
+      "passed": true
+    },
+    {
+      "case": "5_same_args_different_underlying_source",
+      "expected_same": false,
+      "actual_same": true,
+      "passed": false
+    },
+    {
+      "case": "6_nested_reordered_args",
+      "expected_same": true,
+      "actual_same": true,
+      "passed": true
+    },
+    {
+      "case": "7_missing_source_identity",
+      "expected_same": false,
+      "actual_same": false,
+      "passed": true
+    },
+    {
+      "case": "8_repeated_calls_same_logical",
+      "expected_same": true,
+      "actual_same": true,
+      "passed": true
+    },
+    {
+      "case": "9_transform_different_modes",
+      "expected_same": false,
+      "actual_same": false,
+      "passed": true
+    },
+    {
+      "case": "10_diff_physical_same_logical",
+      "expected_same": true,
+      "actual_same": true,
+      "passed": true
+    },
+    {
+      "case": "11_same_physical_diff_logical",
+      "expected_same": false,
+      "actual_same": false,
+      "passed": true
+    },
+    {
+      "case": "12_field_level_distinct",
+      "expected_same": false,
+      "actual_same": false,
+      "passed": true
+    }
+  ],
+  "intervention_controls": [
+    {
+      "control": "sham_intervention",
+      "expected": "DENIAL_INDEPENDENT",
+      "predicted": "DENIAL_INDEPENDENT",
+      "passed": true
+    },
+    {
+      "control": "positive_control",
+      "expected": "DENIAL_SENSITIVE",
+      "predicted": "DENIAL_SENSITIVE",
+      "passed": true
+    },
+    {
+      "control": "negative_control",
+      "expected": "DENIAL_INDEPENDENT",
+      "predicted": "DENIAL_INDEPENDENT",
+      "passed": true
+    },
+    {
+      "control": "independent_source_control",
+      "expected": "DENIAL_INDEPENDENT",
+      "predicted": "DENIAL_INDEPENDENT",
+      "passed": true
+    },
+    {
+      "control": "repeated_execution_5_seeds",
+      "expected": "variability_recorded",
+      "predicted": "AMBIGUOUS,AMBIGUOUS,AMBIGUOUS,AMBIGUOUS,AMBIGUOUS",
+      "passed": true
+    }
+  ]
+}

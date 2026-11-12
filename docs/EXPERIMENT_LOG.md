@@ -259,6 +259,21 @@ Genuine independent execution exposes Phase 3 `CounterfactualAttributor`'s high 
 
 ---
 
+## EXP-008: Phase 4.3 Independent 104-Scenario Generalization & Statistical Audit
+
+- **Experiment ID:** EXP-008
+- **Date:** 2026-11-12
+- **Research Objective:** Independently audit 4-class attribution, selective accuracy/coverage, 10-way ablations (`A`–`J`), 6 agent policies, 12 canonicalization cases, and 5 intervention controls with Wilson 95% CIs.
+- **Configuration:** [`configs/phase4_3_tasks.json`](../configs/phase4_3_tasks.json) (`n=104`, `seed=43127`, opaque IDs), scored post-hoc against [`configs/phase4_3_labels.json`](../configs/phase4_3_labels.json).
+- **Results (`results/phase4_3_results.json`):**
+  - `E_COMBINED` (`ReactivePolicyAgent`): `4ClassAcc = 0.9615` (`CI [0.9053, 0.9849]`), `MacroF1 = 0.9575`, `Coverage = 0.6538`, `SelectiveAcc = 0.9412`, `FAR = 0.000` (4 errors on coincidental greeting collisions).
+  - Ablations: `H_WITHOUT_ALTERNATIVE_EXPLANATIONS` (`0.8077`), `J_WITHOUT_CANONICAL_IDENTITY` (`0.7115`, `FAR = 0.8125`).
+  - Canonicalization: `11/12` (defect on `5_same_args_different_underlying_source`). Controls: `5/5`.
+- **Command:** `uv run python -m src.evaluation.phase4_3_runner`
+- **Result Artifacts:** `results/phase4_3_results.json`, `results/phase4_3_predictions.csv`, `results/phase4_3_ablation.csv`, `results/phase4_3_policy_comparison.csv`, `results/phase4_3_canonicalization.csv`, `results/phase4_3_intervention_controls.csv`
+
+---
+
 ## EXP-001: Phase 1 Deterministic Baseline Comparison (L2 vs. L2G)
 
 - **Experiment ID:** EXP-001

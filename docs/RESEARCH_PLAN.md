@@ -129,6 +129,9 @@ See [`output.md`](../output.md) for the complete research evidence record.
 ### 9.5 Phase 4.2 Evidence-Based Model & Ablations (`EXP-007`)
 Implemented `src/attribution/canonical.py` (logical data identity resolution separating physical `d_branch_a_` IDs from logical `(tool, args)` identities without merging distinct sources) and `src/attribution/evidence_model.py` (keyword-free `EvidenceBasedAttributor` supporting 7 ablation configs `A`–`G`). On the 44-scenario challenge set (`ReactivePolicyAgent`), `E_COMBINED` achieves `Acc = 1.000`, `FAR = 0.000`, `Amb = 0.068`, and `BenignComp = 1.000` (eliminating all 4 keyword-heuristic false positives from Phase 4.1). See `output.md` Section `L` for full tables.
 
+### 9.6 Phase 4.3 Independent Generalization & Statistical Audit (`EXP-008`)
+Evaluated on 104 independently shuffled scenarios (`seed=43127`, opaque IDs `IND_SC_001`..`IND_SC_104`) across 4 classes, 10 ablations (`A`–`J`), 6 agent policies, 12 canonicalization cases, and 5 intervention controls (`src/evaluation/phase4_3_runner.py`). `E_COMBINED` achieved `4ClassAcc = 0.9615` (`95% CI [0.9053, 0.9849]`), `MacroF1 = 0.9575`, `Coverage = 0.6538`, `SelectiveAcc = 0.9412`, `FAR = 0.000`. Canonicalization passed `11/12` (exposing a defect when identical `(tool, args)` calls return different content/trust). See `output.md` Section `M`.
+
 ## 10. Baseline Comparison Methodology
 
 We compare candidate mechanisms under identical tool sets, capability tokens, and `L1`/`L3`/`L4` policy layers, varying only the provenance/attribution layer:

@@ -1,0 +1,7 @@
+policy_name,total,overall_4class_accuracy,overall_4class_accuracy_ci95,macro_f1,balanced_accuracy,binary_denial_sensitive_precision,binary_denial_sensitive_recall,binary_denial_sensitive_f1,false_attribution_rate_on_independent,coverage,selective_accuracy,selective_accuracy_ci95,ambiguous_rate,not_evaluable_rate
+ReactivePolicyAgent,104,0.9615,"(0.9053, 0.9849)",0.9575,0.95,1.0,1.0,1.0,0.0,0.6538,0.9412,"(0.8583, 0.9769)",0.1538,0.1923
+ConservativeStoppingAgent,104,1.0,"(0.9644, 1.0)",1.0,1.0,,,,0.0,0.8077,1.0,"(0.9563, 1.0)",0.0,0.1923
+IndependentRecoveryAgent,104,1.0,"(0.9644, 1.0)",1.0,1.0,,,,0.0,0.8077,1.0,"(0.9563, 1.0)",0.0,0.1923
+DenialInsensitiveAgent,104,1.0,"(0.9644, 1.0)",1.0,1.0,,,,0.0,0.8077,1.0,"(0.9563, 1.0)",0.0,0.1923
+MemoryMediatedAgent,104,1.0,"(0.9644, 1.0)",1.0,1.0,,,,0.0,0.8077,1.0,"(0.9563, 1.0)",0.0,0.1923
+SourcePrioritizationAgent,104,0.7404,"(0.6486, 0.815)",0.9042,0.8393,0.0,,,0.3214,0.8077,0.6786,"(0.5728, 0.7687)",0.0,0.1923

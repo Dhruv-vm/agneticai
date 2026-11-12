@@ -1,0 +1,13 @@
+case,expected_same,actual_same,passed
+1_identical_logical_across_branches,True,True,True
+2_different_args_same_tool,False,False,True
+3_different_docs_identical_content,False,False,True
+4_same_doc_different_routes,False,False,True
+5_same_args_different_underlying_source,False,True,False
+6_nested_reordered_args,True,True,True
+7_missing_source_identity,False,False,True
+8_repeated_calls_same_logical,True,True,True
+9_transform_different_modes,False,False,True
+10_diff_physical_same_logical,True,True,True
+11_same_physical_diff_logical,False,False,True
+12_field_level_distinct,False,False,True
