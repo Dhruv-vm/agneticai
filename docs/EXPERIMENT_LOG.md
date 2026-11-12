@@ -68,6 +68,7 @@ Copy this template for each new experiment (`EXP-001`, `EXP-002`, ...):
 - **Phase 2.1 Audit Command:** `uv run pytest -v` -> 28 passed (adds `tests/test_phase2_audit.py` verifying JSON/CSV reconstruction, 6 hand-traced scenarios, and strategy fairness).
 - **Phase 3 Verification Command:** `uv run pytest -v` -> 33 passed in 0.43s (adds `tests/test_phase3_attribution.py` covering interventions, paired replay, ambiguity, non-evaluable cases, adapter default-off, and reproducibility).
 - **Phase 3.1 Audit Command:** `uv run pytest -v` -> 38 passed in 0.29s (adds `tests/test_phase3_audit.py` covering blind held-out separation, metric reconstruction, multi-denial ablation, and audit report generation).
+- **Phase 4 Verification Command:** `uv run pytest -v` -> 43 passed in 0.43s (adds `tests/test_phase4_agent_execution.py` covering dynamic paired execution, isolated mutable state, ground-truth isolation, unrelated divergence, disabled Ollama adapter, and 60-scenario reproducibility).
 
 ---
 
@@ -181,6 +182,48 @@ The `1.000` accuracy in `EXP-003` is **not** independent evidence of generalizat
 - **Python Version:** `3.12.14`
 - **Command:** `uv run python -m src.evaluation.phase3_audit`
 - **Result Artifact:** `results/phase3_audit_report.json`
+
+---
+
+## EXP-005: Phase 4 Independent Paired Agent Execution & Held-Out Attribution
+
+- **Experiment ID:** EXP-005
+- **Date:** 2026-11-12
+- **Research Objective:** Evaluate genuine dynamic paired execution (`ReactivePolicyAgent` under `ACTUAL` vs. `NEUTRALIZED` feedback, zero Branch B scripting) across 60 distinct scenarios (20 dev + 40 held-out) with strict ground-truth isolation.
+- **Hypothesis:** `ConservativeAttributor` will outperform Phase 3 `CounterfactualAttributor` on false attribution rate by separating unrelated benign wording divergence (`AMBIGUOUS`) and independent trusted sources (`DENIAL_INDEPENDENT`) from denial-sensitive sink/transform divergence.
+- **Configuration:** [`configs/phase4_dev_tasks.json`](../configs/phase4_dev_tasks.json) (`seed=42`, 20 scenarios) and [`configs/phase4_heldout_tasks.json`](../configs/phase4_heldout_tasks.json) (`seed=107`, 40 scenarios); labels in separate `*_labels.json` files loaded only post-prediction.
+- **Model Used:** Deterministic `ReactivePolicyAgent` (`src/agent/agent.py`, no LLM; `OllamaAgentAdapter` disabled by default).
+- **Baseline:** `L2`, `L2G+NONE`, `L2G+IMMEDIATE_NEXT`, `L2G+SINK_SCOPED`, Phase 3 `CounterfactualAttributor`.
+
+### Procedure
+1. `cd "/Users/dhruv/dhruv files/agentic ai/denial-attribution-research"`
+2. `uv run python -m src.evaluation.phase4_runner`
+
+### Results
+Saved in [`results/phase4_evaluation_results.json`](../results/phase4_evaluation_results.json), [`results/phase4_heldout_per_scenario.csv`](../results/phase4_heldout_per_scenario.csv), and [`results/phase4_baseline_comparison.csv`](../results/phase4_baseline_comparison.csv):
+
+- **Held-Out Agent Execution (40 scenarios):** `branch_divergence_rate = 1.000`, `agent_termination_rate = 1.000`, `execution_failures = 0`.
+- **Held-Out Attribution (Phase 3 vs. Phase 4):**
+  - Phase 3 `CounterfactualAttributor`: `Accuracy = 0.800`, `FAR = 0.714`
+  - Phase 4 `ConservativeAttributor`: `CM = {TP: 30, FP: 0, TN: 7, FN: 0}` (`AMBIGUOUS = 3`, `NOT_EVALUABLE = 0`), `Accuracy = 1.000`, `Precision = 1.000`, `Recall = 1.000`, `F1 = 1.000`, `FAR = 0.000`, `Ambiguous Rate = 0.075`.
+- **Held-Out Enforcement Comparison:**
+  - `L2`: `ASR = 1.000`, `BenignComp = 1.000`
+  - `L2G+NONE`: `ASR = 1.000`, `BenignComp = 1.000`
+  - `L2G+IMMEDIATE_NEXT`: `ASR = 0.000`, `BenignComp = 0.200`
+  - `L2G+SINK_SCOPED`: `ASR = 0.800`, `BenignComp = 1.000`
+  - `Phase4_Attr+Adapter`: `ASR = 0.000`, `BenignComp = 1.000`
+- **Held-Out Runtime Overhead (mean / median / p95 ms):**
+  - Agent execution: `0.0169 / 0.0163 / 0.0282 ms`
+  - Monitor: `0.1568 / 0.1417 / 0.2977 ms`
+  - Attribution: `0.0229 / 0.0214 / 0.0331 ms`
+
+### Observations & Conclusion
+Genuine independent execution exposes Phase 3 `CounterfactualAttributor`'s high false attribution rate (`0.714` on held-out) when benign workflows differ in source IDs or wording. `ConservativeAttributor` eliminates those false attributions (`FAR = 0.000`) while preserving `AMBIGUOUS` on unrelated greeting variation (`0.075`). Because `ReactivePolicyAgent` is deterministic and rule-based, live-LLM experiments via `OllamaAgentAdapter` remain necessary before claiming real-world generalization.
+
+### Reproducibility Information
+- **Python Version:** `3.12.14`
+- **Command:** `uv run python -m src.evaluation.phase4_runner`
+- **Result Artifacts:** `results/phase4_evaluation_results.json`, `results/phase4_heldout_per_scenario.csv`, `results/phase4_baseline_comparison.csv`
 
 ---
 

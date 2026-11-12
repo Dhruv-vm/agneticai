@@ -73,7 +73,9 @@ After establishing and benchmarking the ARM-inspired baseline in Phases 1–2, w
 | Attack & benign scenario config (`configs/phase2_scenarios.json`) | **Implemented (Phase 2)** | 12 attack scenarios (`E1`, `E3`, `E4`, `E5`) + 7 benign controls (`E2`) |
 | Counterfactual attribution engine (`src/attribution/`) | **Implemented (Phase 3)** | `models.py`, `intervention.py`, `replay.py`, `comparison.py`, `attributor.py`, `policy_adapter.py` |
 | Paired attribution evaluation (`src/evaluation/phase3_runner.py`) | **Implemented (Phase 3)** | 23 paired scenarios (`configs/phase3_paired_scenarios.json`); outputs to `results/` |
-| LLM-in-the-loop experiments (`src/agent/`) | Planned (Phase 4) | Pending Phase 4 integration |
+| Independent agent & sandbox (`src/agent/`) | **Implemented (Phase 4)** | `state.py`, `environment.py`, `agent.py` (`ReactivePolicyAgent`, optional `OllamaAgentAdapter`), `executor.py` |
+| Conservative attributor (`src/attribution/attributor_v2.py`) | **Implemented (Phase 4)** | Separates unrelated divergence (`AMBIGUOUS`) and independent trusted sources |
+| 60-scenario dev/held-out evaluation (`src/evaluation/phase4_runner.py`) | **Implemented (Phase 4)** | 20 dev + 40 held-out scenarios with strict ground-truth isolation |
 
 ## Technology Stack
 
@@ -109,7 +111,7 @@ Do **not** commit `.env` or place real credentials in configuration files or exp
 uv run pytest -v
 ```
 
-Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`, `tests/test_phase2_audit.py`, `tests/test_phase3_attribution.py`, `tests/test_phase3_audit.py`) runs 38 deterministic unit, scenario, audit, and attribution tests.
+Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`, `tests/test_phase2_audit.py`, `tests/test_phase3_attribution.py`, `tests/test_phase3_audit.py`, `tests/test_phase4_agent_execution.py`) runs 43 deterministic unit, scenario, audit, attribution, and independent-agent tests.
 
 ## How to Execute Experiments
 
@@ -119,13 +121,19 @@ Run the Phase 2 deterministic strategy comparison:
 uv run python -m src.evaluation.runner
 ```
 
-Run the Phase 3 paired-execution denial attribution evaluation (`23` paired scenarios, `seed=42`):
+Run the Phase 3 paired-execution denial attribution evaluation:
 
 ```bash
 uv run python -m src.evaluation.phase3_runner
 ```
 
-This writes structured outputs to `results/phase3_attribution_results.json`, `results/phase3_per_action.csv`, and `results/phase3_summary.csv`. Every executed experiment must be logged in [`docs/EXPERIMENT_LOG.md`](docs/EXPERIMENT_LOG.md) with its configuration, inputs, outputs, and saved results in `results/`.
+Run the Phase 4 independent agent execution & attribution evaluation (`20` dev + `40` held-out scenarios):
+
+```bash
+uv run python -m src.evaluation.phase4_runner
+```
+
+This writes structured outputs to `results/phase4_evaluation_results.json`, `results/phase4_heldout_per_scenario.csv`, and `results/phase4_baseline_comparison.csv`. Every executed experiment must be logged in [`docs/EXPERIMENT_LOG.md`](docs/EXPERIMENT_LOG.md) with its configuration, inputs, outputs, and saved results in `results/`.
 
 ## Project Structure
 
@@ -159,8 +167,8 @@ denial-attribution-research/
 
 ## Current Development Status
 
-- **Current Phase:** Phase 3 (Counterfactual Denial Feedback Attribution Engine) — complete.
-- **Next Milestone:** Phase 4 — Integrate tool-calling LLM agents in `src/agent/` to test paired denial-feedback interventions under real model non-determinism and measure LLM replay overhead.
+- **Current Phase:** Phase 4 (Independent Agent Execution & Denial-Feedback Attribution) — complete.
+- **Next Milestone:** Phase 5 — Statistical analysis, ablations, live-LLM trials via `OllamaAgentAdapter`, and novelty reassessment for conference paper drafting.
 
 ## Team Handover Instructions
 

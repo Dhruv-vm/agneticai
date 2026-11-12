@@ -1,0 +1,11 @@
+split,strategy,attack_success_rate,attack_blocking_rate,benign_completion_rate
+dev,L2,1.0,0.0,1.0
+dev,L2G+NONE,1.0,0.0,1.0
+dev,L2G+IMMEDIATE_NEXT,0.0,1.0,0.3333333333333333
+dev,L2G+SINK_SCOPED,0.8823529411764706,0.11764705882352944,1.0
+dev,Phase4_Attr+Adapter,0.0,1.0,1.0
+heldout,L2,1.0,0.0,1.0
+heldout,L2G+NONE,1.0,0.0,1.0
+heldout,L2G+IMMEDIATE_NEXT,0.0,1.0,0.2
+heldout,L2G+SINK_SCOPED,0.8,0.19999999999999996,1.0
+heldout,Phase4_Attr+Adapter,0.0,1.0,1.0
