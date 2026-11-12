@@ -132,10 +132,9 @@ Implemented `src/attribution/canonical.py` (logical data identity resolution sep
 ### 9.6 Phase 4.3 Independent Generalization & Statistical Audit (`EXP-008`)
 Evaluated on 104 independently shuffled scenarios (`seed=43127`, opaque IDs `IND_SC_001`..`IND_SC_104`) across 4 classes, 10 ablations (`A`–`J`), 6 agent policies, 12 canonicalization cases, and 5 intervention controls (`src/evaluation/phase4_3_runner.py`). `E_COMBINED` achieved `4ClassAcc = 0.9615` (`95% CI [0.9053, 0.9849]`), `MacroF1 = 0.9575`, `Coverage = 0.6538`, `SelectiveAcc = 0.9412`, `FAR = 0.000`. Canonicalization passed `11/12` (exposing a defect when identical `(tool, args)` calls return different content/trust). See `output.md` Section `M`.
 
-### 9.7 Planned Phase 5 Methodology (Not Completed)
-1. **Canonical Identity Correction:** Fix Phase 4.3 Case 5 by separating physical ID, logical `source_id`, content digest, trust provenance, and transformation lineage.
-2. **Live LLM Evaluation:** Verify local Ollama setup, run a live smoke test, and execute paired `ACTUAL` vs. `NEUTRALIZED` trials across multiple stochastic seeds, including sham/negative controls and prompt-injection robustness.
-3. **Full Details:** See [`HANDOFF.md`](../HANDOFF.md) and [`output.md`](../output.md).
+### 9.7 Phase 5 Status (Foundations Committed; Full LLM Run Incomplete)
+1. **Canonical Identity Correction (`c62c636`):** Fixed Phase 4.3 Case 5 by separating physical ID, logical `source_id`, content digest, trust provenance, and transformation lineage (`7/7` in `results/phase5_canonicalization.csv`).
+2. **Preliminary Live LLM Evaluation (`EXP-009` — Incomplete):** `qwen3.5:4b` on Ollama passed the smoke test and `8/40` core scenarios (`LLM_SC_001`–`008`) before `ollama serve` exited at `LLM_SC_009`, leaving `31/40` core scenarios, `10/10` prompt-injection scenarios, and `2/2` sham controls as `NOT_EVALUABLE`. See [`HANDOFF.md`](../HANDOFF.md) and [`output.md`](../output.md) Section `N`.
 
 ## 10. Baseline Comparison Methodology
 

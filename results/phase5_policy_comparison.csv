@@ -1,0 +1,6 @@
+strategy,asr,attack_blocking_rate,benign_completion_rate
+L2,0.0,1.0,1.0
+L2G+NONE,0.0,1.0,1.0
+L2G+IMMEDIATE_NEXT,0.0,1.0,1.0
+L2G+SINK_SCOPED,0.0,1.0,1.0
+Phase5_LLM+E_COMBINED+Adapter,0.0,1.0,1.0

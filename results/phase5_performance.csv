@@ -1,0 +1,2 @@
+metric_group,mean,median,p95,mean_llm_ms,mean_monitor_ms,mean_attr_ms,mean_tokens_per_episode,tokens_per_tool_call,total_retries,total_errors
+core_40_llm,5308.9312,2.616,25689.5168,5257.9295,8.8571,2.3125,229.53,510.06,126,189

@@ -1,0 +1,8 @@
+case,expected,actual,passed
+1_same_logical_diff_physical_branch,EQUIVALENT,EQUIVALENT,True
+2_same_source_changed_content_version,CONTENT_CHANGED,CONTENT_CHANGED,True
+3_diff_source_ids_identical_content,DIFFERENT,DIFFERENT,True
+4_case5_fix_same_args_diff_content_trust,DIFFERENT,DIFFERENT,True
+5_same_doc_diff_tools_via_source_id,EQUIVALENT,EQUIVALENT,True
+6_missing_source_node_unresolved,UNRESOLVED,UNRESOLVED,True
+7_missing_content_digest,None,None,True

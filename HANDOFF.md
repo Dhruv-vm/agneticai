@@ -34,9 +34,10 @@
 
 ## 2. Current Status
 
-- **Completed Phases:** Phase 0 through Phase 4.3.
-- **Latest Verified Committed Milestone:** `7335414` (`test: independently audit denial attribution generalization`) on branch `main`.
-- **Phase 5 Status:** **Planned (NOT COMPLETED).** *(Note: Local working tree may contain uncommitted draft/WIP Phase 5 files; do not treat any Phase 5 experiment as completed or validated until executed and logged end-to-end.)*
+- **Completed Phases:** Phase 0 (`da3e1b4`) through Phase 4.3 (`7335414`), plus Phase 5 canonicalization and agent foundations (`c62c636`).
+- **Phase 5 Status:** **Scaffolding & partial raw records published — FULL LLM EVALUATION INCOMPLETE.**
+  - `canonical.py` Case 5 defect was fixed in `c62c636` (`59/59` tests passing).
+  - The preliminary `qwen3.5:4b` run (`EXP-009`) passed the smoke test and `8/40` core scenarios cleanly, then encountered an Ollama service exit at `LLM_SC_009`, leaving `31/40` core scenarios, `10/10` prompt-injection scenarios, and `2/2` sham controls as `NOT_EVALUABLE` (`ConnectionRefusedError`). Do **not** cite `EXP-009` for performance claims.
 
 ---
 
@@ -167,15 +168,38 @@ uv run python -m src.evaluation.phase4_3_runner
 
 ---
 
-## 9. Next Steps — Phase 5 (Planned, NOT COMPLETED)
+## 9. Next Steps — Phase 5 (Incomplete; Resumption Required)
 
-1. Fix canonical source identity (`Case 5` defect) using explicit environment `source_id` + content digest + trust provenance, and validate with unit tests.
-2. Verify local Ollama setup (`ollama serve`, `ollama list`) and run a live LLM smoke test.
-3. Build a genuine LLM-driven tool-using agent (structured action generation or native tool calling) with zero label leakage.
-4. Conduct paired `ACTUAL` vs. `NEUTRALIZED` trials across multiple stochastic seeds, including sham/negative controls.
-5. Evaluate prompt-injection robustness, enforcement/attribution baselines, and latency/token cost.
+1. Verify Ollama service stability before restarting (`ollama serve` must stay alive for the full multi-minute run).
+2. Back up existing `results/phase5_*` files before any rerun (`phase5_runner.py` overwrites `results/phase5_*` on completion and does not resume mid-suite).
+3. Execute `uv run python -m src.evaluation.phase5_runner` to completion across all 40 core scenarios, 5-seed repeated trials, sham controls, and 10 prompt-injection scenarios.
+4. Update `output.md` Section `N` and `docs/EXPERIMENT_LOG.md` (`EXP-009`) with the completed run.
 
-*Do not claim any Phase 5 results until experiments are executed, verified, and logged.*
+### Phase 5 Resumption Guide (Verified Commands)
+
+> **Important:** `src/evaluation/phase5_runner.py` runs the full suite from the start and overwrites `results/phase5_*` files. Back up `results/phase5_*` before rerunning.
+
+```bash
+# 1. Check Ollama availability & version
+ollama --version
+
+# 2. Check installed models (confirm qwen3.5:4b is present)
+ollama list
+
+# 3. Start Ollama server if not already running (in a separate terminal or background)
+ollama serve
+
+# 4. Run the Phase 5 canonicalization check and live LLM smoke test
+uv run python -c "from src.evaluation.phase5_runner import check_ollama_available, run_canonicalization_audit_v2, run_llm_smoke_test; print(check_ollama_available()); print(run_canonicalization_audit_v2()); print(run_llm_smoke_test())"
+
+# 5. Back up existing partial Phase 5 results, then run the full Phase 5 experiment
+mkdir -p results/backup_exp009 && cp results/phase5_* results/backup_exp009/
+uv run python -m src.evaluation.phase5_runner
+
+# 6. Inspect raw result records
+cat results/phase5_canonicalization.csv
+head -n 20 results/phase5_llm_predictions.csv
+```
 
 ---
 
@@ -193,4 +217,4 @@ uv run python -m src.evaluation.phase4_3_runner
 
 ## 11. Immediate First Task
 
-**Inspect and finalize the canonicalization defect fix (Phase 4.3 Case 5)** in `src/attribution/canonical.py` (ensuring physical ID, logical `source_id`, content digest, trust provenance, and transformation lineage are separated) and verify all canonicalization tests pass **before** running full live-LLM experiments.
+**Verify Ollama service stability and resume `uv run python -m src.evaluation.phase5_runner`** (after backing up the partial `EXP-009` records in `results/phase5_*`) so that all 40 core scenarios, repeated-seed trials, sham controls, and 10 prompt-injection scenarios complete without `ConnectionRefusedError`.

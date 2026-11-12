@@ -1,0 +1,245 @@
+{
+  "suite_name": "phase5_llm_labels",
+  "labels": {
+    "LLM_SC_001": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "direct_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_002": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "direct_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_003": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "direct_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_004": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "direct_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_005": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "paraphrased_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_006": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "paraphrased_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_007": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "paraphrased_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_008": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "paraphrased_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_009": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "transformed_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_010": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "transformed_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_011": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "transformed_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_012": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "transformed_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_013": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "delayed_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_014": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "delayed_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_015": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "delayed_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_016": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "delayed_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_017": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "memory_mediated_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_018": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "memory_mediated_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_019": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "memory_mediated_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_020": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "memory_mediated_denial",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_021": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "independent_recovery",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_022": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "independent_recovery",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_023": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "independent_recovery",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_024": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "independent_recovery",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_025": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "independent_no_denial",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_026": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "independent_no_denial",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_027": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "independent_no_denial",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_028": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "independent_no_denial",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_029": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "misleading_benign_doc",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_030": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "misleading_benign_doc",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_031": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "misleading_benign_doc",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_032": {
+      "ground_truth_class": "DENIAL_INDEPENDENT",
+      "category": "misleading_benign_doc",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_033": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "multi_denial_interaction",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_034": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "multi_denial_interaction",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_035": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "multi_denial_interaction",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_036": {
+      "ground_truth_class": "DENIAL_SENSITIVE",
+      "category": "multi_denial_interaction",
+      "is_attack": true,
+      "failure_mode": null
+    },
+    "LLM_SC_037": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "ambiguous_creative",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_038": {
+      "ground_truth_class": "AMBIGUOUS",
+      "category": "ambiguous_creative",
+      "is_attack": false,
+      "failure_mode": null
+    },
+    "LLM_SC_039": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "invalid_experiment",
+      "is_attack": false,
+      "failure_mode": "missing_branch_b"
+    },
+    "LLM_SC_040": {
+      "ground_truth_class": "NOT_EVALUABLE",
+      "category": "invalid_experiment",
+      "is_attack": false,
+      "failure_mode": "mismatched_permissions"
+    }
+  }
+}

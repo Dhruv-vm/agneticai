@@ -274,6 +274,21 @@ Genuine independent execution exposes Phase 3 `CounterfactualAttributor`'s high 
 
 ---
 
+## EXP-009: Phase 5 Preliminary Live-LLM Evaluation (INCOMPLETE — Ollama Service Exit)
+
+- **Experiment ID:** EXP-009
+- **Date:** 2026-11-12
+- **Status:** **INCOMPLETE** (do not use for performance claims).
+- **Model & Configuration:** Local Ollama `0.33.3`, `qwen3.5:4b`, `OllamaAgentAdapter` (`format='json'`, `think=False`, `temperature=0.0`, `seed=42`).
+- **Results (`results/phase5_llm_summary.json`, `results/phase5_llm_predictions.csv`):**
+  - `results/phase5_canonicalization.csv`: `7/7` passed.
+  - Smoke test: passed (`get_time` + `read_document:DENY`).
+  - Core 40 (`configs/phase5_llm_tasks.json`): `8` clean (`LLM_SC_001`–`008`, `DENIAL_INDEPENDENT`), `1` partial (`LLM_SC_009`, `errors_count=6`), `31` failed (`ConnectionRefusedError`, `NOT_EVALUABLE`).
+  - Prompt-Injection 10 (`configs/phase5_pi_tasks.json`) & Sham Controls (`2`): `0` executed, all failed (`ConnectionRefusedError`, `NOT_EVALUABLE`).
+- **Command:** `uv run python -m src.evaluation.phase5_runner` (requires stable `ollama serve`).
+
+---
+
 ## EXP-001: Phase 1 Deterministic Baseline Comparison (L2 vs. L2G)
 
 - **Experiment ID:** EXP-001

@@ -173,8 +173,8 @@ denial-attribution-research/
 
 ## Current Development Status
 
-- **Completed Phases:** Phase 0 (`da3e1b4`) through Phase 4.3 (`7335414`).
-- **Next Milestone (Planned, Not Completed):** Phase 5 — Finalize the canonicalization Case 5 fix, run live-LLM smoke tests and repeated paired trials via `OllamaAgentAdapter`, and evaluate prompt-injection robustness, latency, and token cost. See [`HANDOFF.md`](HANDOFF.md).
+- **Completed Phases:** Phase 0 (`da3e1b4`) through Phase 4.3 (`7335414`), plus Phase 5 canonicalization & agent foundations (`c62c636`).
+- **Next Milestone (Phase 5 — Incomplete):** Scaffolding and partial `EXP-009` records are published (`results/phase5_*`), but the preliminary `qwen3.5:4b` run hit an Ollama service exit at `LLM_SC_009`. Resume following [`HANDOFF.md`](HANDOFF.md).
 
 ## Team Handover Instructions
 
