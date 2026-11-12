@@ -24,7 +24,8 @@
 5. **Phase 3 (`72eb58b`):** Paired-execution counterfactual attribution prototype (`src/attribution/`), `EXP-003` (`23` paired scenarios, `33 passed`).
 6. **Phase 3.1 (`71c4cc9`):** Independent validity audit (`src/evaluation/phase3_audit.py`, `EXP-004`), discovering that Phase 3 Branch B traces were pre-scripted (`branch_b_independently_executed = False`), revealing structural circularity and `4/6` (`0.667`) blind held-out accuracy (`38 passed`).
 7. **Phase 4 (`0eaea21`):** Genuine independent agent execution (`src/agent/`), `ReactivePolicyAgent`, `SandboxedEnvironment`, `ConservativeAttributor` (`attributor_v2.py`), 60 scenarios (`20` dev + `40` held-out) with strict ground-truth isolation, `EXP-005` (`43 passed`).
-8. **Phase 4.1 (Current):** Robustness, divergence-artifact, and generalization audit across 44 independent challenge scenarios and 4 agent policies (`ReactivePolicyAgent`, `ConservativeStoppingAgent`, `IndependentRecoveryAgent`, `DenialInsensitiveAgent`), `EXP-006`.
+8. **Phase 4.1 (`665b78c`):** Robustness, divergence-artifact, and generalization audit across 44 independent challenge scenarios and 4 agent policies (`ReactivePolicyAgent`, `ConservativeStoppingAgent`, `IndependentRecoveryAgent`, `DenialInsensitiveAgent`), `EXP-006` (`47 passed`).
+9. **Phase 4.2 (Current):** Canonical logical identity resolution (`src/attribution/canonical.py`), keyword-free multi-evidence attribution (`src/attribution/evidence_model.py`), 7-way ablation study (`A`–`G`), and 7-case multi-denial study (`EXP-007`).
 
 ---
 
@@ -144,3 +145,44 @@
 | `EXP-004` (Phase 3.1) | `configs/phase3_heldout_traces.json` | `uv run python -m src.evaluation.phase3_audit` | `results/phase3_audit_report.json` |
 | `EXP-005` (Phase 4) | `configs/phase4_{dev,heldout}_tasks.json` | `uv run python -m src.evaluation.phase4_runner` | `results/phase4_evaluation_results.json` |
 | `EXP-006` (Phase 4.1) | `configs/phase4_challenge_tasks.json` | `uv run python -m src.evaluation.phase4_audit` | `results/phase4_1_audit_results.json` |
+| `EXP-007` (Phase 4.2) | `configs/phase4_{heldout,challenge}_tasks.json` | `uv run python -m src.evaluation.phase4_2_runner` | `results/phase4_2_results.json` |
+
+---
+
+## L. Phase 4.2 — Evidence-Based Attribution, Canonicalization & Ablation Study (`EXP-007`)
+
+### 1. Motivation & Implementation Changes
+- **Root Cause of Phase 4.1 False Positives:** (a) `AgentExecutor` generated branch-prefixed physical IDs (`d_branch_a_s1` vs. `d_branch_b_s1`), and (b) `ConservativeAttributor` (`attributor_v2.py`) used `_DENIAL_CONTENT_MARKERS`, flagging benign trusted documents containing `"summary:"`, `"status:"`, `"shadow"`, or `"protected"` (`CH_BENIGN_SENSITIVE_WORDS_01..04`).
+- **Canonical Identity (`src/attribution/canonical.py`):** `resolve_logical_source` maps physical IDs to logical source identities `logical::<tool>(<canonical_args>)` while keeping genuinely distinct sources separate.
+- **Keyword-Free Evidence Model (`src/attribution/evidence_model.py`):** `EvidenceBasedAttributor` removes all keyword matching and evaluates observable denial events, canonical provenance equivalence, independent trusted sources, and intervention-sensitive action omission, emitting structured `EvidenceExplanation` objects.
+
+### 2. Original vs. Corrected Phase 4 Held-Out (`n=40`)
+- **Original Phase 4 (`EXP-005`):** `Acc = 1.000`, `FAR = 0.000`, `Amb = 0.075`, `RawDiv = 1.000`.
+- **Corrected Phase 4.2 (`EXP-007`, `E_COMBINED`):** `Acc = 1.000`, `FAR = 0.000`, `Amb = 0.075`, `MeaningfulDiv = 0.825` (`33/40`), `SinkDiv = 0.825`, `OutcomeDiv = 0.825`.
+
+### 3. Seven-Way Ablation Study on Challenge Set (`n=44`, `ReactivePolicyAgent`, `results/phase4_2_ablation_summary.csv`)
+| Config | Accuracy | Precision | Recall | FAR | Ambiguous Rate |
+|---|---|---|---|---|---|
+| `A_TRACE_DIVERGENCE_ONLY` | `1.000` | `1.000` | `1.000` | `0.000` | `0.000` *(misses 3 `AMBIGUOUS`)* |
+| `B_PROVENANCE_ONLY` | `0.900` | `0.800` | `1.000` | `0.167` | `0.000` |
+| `C_DENIAL_EVENT_ONLY` | `0.400` | `0.400` | `1.000` | `1.000` | `0.000` |
+| `D_INDEPENDENT_SOURCE_ONLY` | `0.900` | `0.800` | `1.000` | `0.167` | `0.000` |
+| `E_COMBINED` | `1.000` | `1.000` | `1.000` | `0.000` | `0.068` (`3/44`) |
+| `F_COMBINED_NO_TEMPORAL` | `1.000` | `1.000` | `1.000` | `0.000` | `0.068` (`3/44`) |
+| `G_COMBINED_NO_PROVENANCE` | `1.000` | `1.000` | `1.000` | `0.000` | `0.068` (`3/44`) |
+
+### 4. Multi-Policy Challenge Results (`E_COMBINED`, `results/phase4_2_policy_comparison.csv`)
+- `ReactivePolicyAgent`: `Acc = 1.000`, `FAR = 0.000`, `Amb = 0.068`
+- `ConservativeStoppingAgent`, `IndependentRecoveryAgent`, `DenialInsensitiveAgent`: `Acc = 1.000`, `FAR = 0.000`, `Amb = 0.000`
+- **Challenge Enforcement (`E_COMBINED` + Adapter):** `ASR = 0.000`, `Attack Blocking = 1.000`, `Benign Completion = 1.000` (eliminating all 4 Phase 4.1 false positives).
+
+### 5. Seven-Case Multiple-Denial Ablation (`results/phase4_2_multi_denial.csv`)
+- `MD_1_SINGLE_INFLUENTIAL` -> `DENIAL_SENSITIVE` (`denial_c1`)
+- `MD_6_ONE_INFLUENTIAL_ONE_IRREL` -> `DENIAL_SENSITIVE` (`denial_c1`)
+- `MD_5_UNRELATED_OUTCOME` -> `DENIAL_INDEPENDENT`
+- `MD_2_TWO_INDEPENDENT`, `MD_3_CONJUNCTIVE`, `MD_4_ALTERNATIVE_PATHS`, `MD_7_JOINT_ONLY` -> `AMBIGUOUS`
+
+### 6. Reproducibility & Limitations
+- **Command:** `uv run python -m src.evaluation.phase4_2_runner`
+- **Artifacts:** `results/phase4_2_results.json`, `results/phase4_2_ablation_summary.csv`, `results/phase4_2_policy_comparison.csv`, `results/phase4_2_multi_denial.csv`.
+- **Limitation:** `E_COMBINED` and `G_COMBINED_NO_PROVENANCE` tie on this challenge set because `ReactivePolicyAgent` omits the sink in Branch B; provenance becomes decisive when both branches execute the same tool with different sources (`HO_05`). Live-LLM experiments remain for Phase 5.

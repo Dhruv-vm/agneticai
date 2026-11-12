@@ -1,0 +1,8 @@
+case_id,classification,attributed_denial_id,uncertainty,reason
+MD_1_SINGLE_INFLUENTIAL,DENIAL_SENSITIVE,denial_c1,MEDIUM,Target action diverged uniquely when 'denial_c1' was neutralized and under all-denials neutralization.
+MD_2_TWO_INDEPENDENT,AMBIGUOUS,,HIGH,"Non-separable multi-denial interaction (single_divergences=['denial_c1', 'denial_c2'], all_diverged=True); returning AMBIGUOUS rather than forcing single-denial attribution."
+MD_3_CONJUNCTIVE,AMBIGUOUS,,HIGH,"Non-separable multi-denial interaction (single_divergences=['denial_c1', 'denial_c2'], all_diverged=True); returning AMBIGUOUS rather than forcing single-denial attribution."
+MD_4_ALTERNATIVE_PATHS,AMBIGUOUS,,HIGH,"Non-separable multi-denial interaction (single_divergences=[], all_diverged=True); returning AMBIGUOUS rather than forcing single-denial attribution."
+MD_5_UNRELATED_OUTCOME,DENIAL_INDEPENDENT,,LOW,Target action remained invariant across all single and combined ablations.
+MD_6_ONE_INFLUENTIAL_ONE_IRREL,DENIAL_SENSITIVE,denial_c1,MEDIUM,Target action diverged uniquely when 'denial_c1' was neutralized and under all-denials neutralization.
+MD_7_JOINT_ONLY,AMBIGUOUS,,HIGH,"Non-separable multi-denial interaction (single_divergences=[], all_diverged=True); returning AMBIGUOUS rather than forcing single-denial attribution."

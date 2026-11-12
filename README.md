@@ -74,8 +74,10 @@ After establishing and benchmarking the ARM-inspired baseline in Phases 1–2, w
 | Counterfactual attribution engine (`src/attribution/`) | **Implemented (Phase 3)** | `models.py`, `intervention.py`, `replay.py`, `comparison.py`, `attributor.py`, `policy_adapter.py` |
 | Paired attribution evaluation (`src/evaluation/phase3_runner.py`) | **Implemented (Phase 3)** | 23 paired scenarios (`configs/phase3_paired_scenarios.json`); outputs to `results/` |
 | Independent agent & sandbox (`src/agent/`) | **Implemented (Phase 4)** | `state.py`, `environment.py`, `agent.py` (`ReactivePolicyAgent`, optional `OllamaAgentAdapter`), `executor.py` |
-| Conservative attributor (`src/attribution/attributor_v2.py`) | **Implemented (Phase 4)** | Separates unrelated divergence (`AMBIGUOUS`) and independent trusted sources |
+| Conservative attributor (`src/attribution/attributor_v2.py`) | **Implemented (Phase 4)** | Legacy Phase 4 attributor (keyword heuristic audited in 4.1) |
+| Canonical identity & evidence model (`src/attribution/canonical.py`, `evidence_model.py`) | **Implemented (Phase 4.2)** | Keyword-free 7-ablation model + logical data identity resolution |
 | 60-scenario dev/held-out evaluation (`src/evaluation/phase4_runner.py`) | **Implemented (Phase 4)** | 20 dev + 40 held-out scenarios with strict ground-truth isolation |
+| Phase 4.2 ablation & multi-denial study (`src/evaluation/phase4_2_runner.py`) | **Implemented (Phase 4.2)** | 7-way ablation (`A`–`G`), 4 policies, 7 multi-denial cases |
 
 ## Technology Stack
 
@@ -111,7 +113,7 @@ Do **not** commit `.env` or place real credentials in configuration files or exp
 uv run pytest -v
 ```
 
-Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`, `tests/test_phase2_audit.py`, `tests/test_phase3_attribution.py`, `tests/test_phase3_audit.py`, `tests/test_phase4_agent_execution.py`, `tests/test_phase4_1_audit.py`) runs 47 deterministic unit, scenario, audit, attribution, and generalization tests.
+Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`, `tests/test_phase2_audit.py`, `tests/test_phase3_attribution.py`, `tests/test_phase3_audit.py`, `tests/test_phase4_agent_execution.py`, `tests/test_phase4_1_audit.py`, `tests/test_phase4_2_evidence_model.py`) runs 52 deterministic tests.
 
 For the complete chronological research evidence record, see [`output.md`](output.md).
 

@@ -243,6 +243,22 @@ Genuine independent execution exposes Phase 3 `CounterfactualAttributor`'s high 
 
 ---
 
+## EXP-007: Phase 4.2 Evidence-Based Attribution, Canonicalization & Ablation Study
+
+- **Experiment ID:** EXP-007
+- **Date:** 2026-11-12
+- **Research Objective:** Eliminate Phase 4.1's branch-ID and keyword-heuristic false positives and measure each evidence dimension via a 7-way ablation study (`A`–`G`), 4 agent policies, and 7 multi-denial interaction cases.
+- **Configuration:** [`configs/phase4_heldout_tasks.json`](../configs/phase4_heldout_tasks.json) (`n=40`, `seed=107`), [`configs/phase4_challenge_tasks.json`](../configs/phase4_challenge_tasks.json) (`n=44`, `seed=2026`), `EvidenceBasedAttributor` (`src/attribution/evidence_model.py`) + `resolve_logical_source` (`src/attribution/canonical.py`).
+- **Results (`results/phase4_2_results.json`):**
+  - Corrected Phase 4 Held-Out (`E_COMBINED`): `Acc = 1.000`, `FAR = 0.000`, `Amb = 0.075`, `MeaningfulDiv = 0.825`.
+  - Challenge Ablations (`ReactivePolicyAgent`, `n=44`): `C_DENIAL_EVENT_ONLY` (`Acc=0.400, FAR=1.000`), `B_PROVENANCE_ONLY` & `D_INDEPENDENT_SOURCE_ONLY` (`Acc=0.900, FAR=0.167`), `A_TRACE_DIVERGENCE_ONLY` (`Acc=1.000, Amb=0.000` — misses 3 `AMBIGUOUS`), `E_COMBINED`/`F_COMBINED_NO_TEMPORAL` (`Acc=1.000, FAR=0.000, Amb=0.068`).
+  - Challenge Enforcement (`E_COMBINED` + Adapter): `ASR = 0.000`, `BenignComp = 1.000`.
+  - 7 Multi-Denial Cases (`results/phase4_2_multi_denial.csv`): `MD_1`, `MD_6` -> `DENIAL_SENSITIVE` (`denial_c1`); `MD_5` -> `DENIAL_INDEPENDENT`; `MD_2`, `MD_3`, `MD_4`, `MD_7` -> `AMBIGUOUS`.
+- **Command:** `uv run python -m src.evaluation.phase4_2_runner`
+- **Result Artifacts:** `results/phase4_2_results.json`, `results/phase4_2_ablation_summary.csv`, `results/phase4_2_policy_comparison.csv`, `results/phase4_2_multi_denial.csv`
+
+---
+
 ## EXP-001: Phase 1 Deterministic Baseline Comparison (L2 vs. L2G)
 
 - **Experiment ID:** EXP-001

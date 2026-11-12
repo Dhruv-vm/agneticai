@@ -126,6 +126,9 @@ An independent 44-scenario challenge suite (`configs/phase4_challenge_tasks.json
 3. **Non-Reactive Policies:** All 3 non-reactive policies achieved `P4_Acc = 1.000`, `P4_FAR = 0.000`, `MeaningfulDiv = 0.000`.
 See [`output.md`](../output.md) for the complete research evidence record.
 
+### 9.5 Phase 4.2 Evidence-Based Model & Ablations (`EXP-007`)
+Implemented `src/attribution/canonical.py` (logical data identity resolution separating physical `d_branch_a_` IDs from logical `(tool, args)` identities without merging distinct sources) and `src/attribution/evidence_model.py` (keyword-free `EvidenceBasedAttributor` supporting 7 ablation configs `A`–`G`). On the 44-scenario challenge set (`ReactivePolicyAgent`), `E_COMBINED` achieves `Acc = 1.000`, `FAR = 0.000`, `Amb = 0.068`, and `BenignComp = 1.000` (eliminating all 4 keyword-heuristic false positives from Phase 4.1). See `output.md` Section `L` for full tables.
+
 ## 10. Baseline Comparison Methodology
 
 We compare candidate mechanisms under identical tool sets, capability tokens, and `L1`/`L3`/`L4` policy layers, varying only the provenance/attribution layer:

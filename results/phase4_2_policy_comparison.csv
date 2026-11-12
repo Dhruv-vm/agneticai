@@ -1,0 +1,5 @@
+policy_name,ablation,total,accuracy,precision,recall,f1,far,ambiguous_rate,not_evaluable_rate,mean_attr_ms
+ReactivePolicyAgent,E_COMBINED,44,1.0,1.0,1.0,1.0,0.0,0.06818181818181818,0.0,0.0175
+ConservativeStoppingAgent,E_COMBINED,44,1.0,,,,0.0,0.0,0.0,0.0048
+IndependentRecoveryAgent,E_COMBINED,44,1.0,,,,0.0,0.0,0.0,0.0059
+DenialInsensitiveAgent,E_COMBINED,44,1.0,,,,0.0,0.0,0.0,0.0058
