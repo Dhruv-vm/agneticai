@@ -65,12 +65,14 @@ After establishing and benchmarking the ARM-inspired baseline in Phases 1–2, w
 
 | Component | Status | Notes |
 |---|---|---|
-| Project structure, docs, env, smoke tests | **Implemented (Phase 0)** | Current milestone |
-| Structured event/graph/policy models | Planned (Phase 1) | Pydantic models specified in `RESEARCH_PLAN.md` |
-| ARM-inspired baseline monitor & graph | Planned (Phase 1) | Simplifications to be documented |
-| Attack & benign scenarios (`E1`–`E5`) | Planned (Phase 2) | Directories created; scenarios pending |
-| Denial-specific attribution mechanism | Planned (Phase 3) | Hypothesis only |
-| LLM-in-the-loop experiments | Planned (Phase 4) | Pending Phases 1–3 |
+| Project structure, docs, env, smoke tests | **Implemented (Phase 0)** | Complete |
+| Structured event/graph/policy models (`src/monitor/models.py`) | **Implemented (Phase 1)** | Pydantic v2 models + 5-level `TrustLevel` `IntEnum` |
+| NetworkX provenance graph (`src/monitor/provenance.py`) | **Implemented (Phase 1)** | Nodes, edges, `MinTrust`, counterfactual chains |
+| ARM-inspired baseline monitor (`src/monitor/arm_baseline.py`) | **Implemented (Phase 1)** | `L1`, `L2` vs `L2G`, `L3`, `L4`; simplifications documented |
+| Scenario fixtures & comparison runner (`src/evaluation/`) | **Implemented (Phase 1)** | `E1`–`E5` + ARM core scenarios; outputs to `results/` |
+| Attack & benign scenario expansion (`scenarios/`) | Planned (Phase 2) | Deepening `E1`–`E5` variants & benign datasets |
+| Denial-specific attribution mechanism (`src/replay/`) | Planned (Phase 3) | Hypothesis only |
+| LLM-in-the-loop experiments (`src/agent/`) | Planned (Phase 4) | Pending Phases 1–3 |
 
 ## Technology Stack
 
@@ -103,14 +105,20 @@ Do **not** commit `.env` or place real credentials in configuration files or exp
 ## How to Run Tests
 
 ```bash
-uv run pytest
+uv run pytest -v
 ```
 
-Currently, `tests/test_smoke.py` verifies the Python 3.12 runtime, core dependencies (`networkx`, `pydantic`), and `src` package imports.
+Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`) runs 20 deterministic unit and scenario tests covering data models, trust lattice ordering, provenance graph traversal, field-level isolation, `L1`/`L3`/`L4` policy layers, and `L2` vs. `L2G` enforcement.
 
 ## How to Execute Experiments
 
-Experiment runners and scenario configurations will be added in Phase 2 (`src/evaluation/`, `scripts/`, `configs/`). Every executed experiment must be logged in [`docs/EXPERIMENT_LOG.md`](docs/EXPERIMENT_LOG.md) with its configuration, seed, inputs, outputs, and saved results in `results/`.
+Run the Phase 1 deterministic `L2` vs. `L2G` baseline comparison:
+
+```bash
+uv run python -m src.evaluation.runner
+```
+
+This writes structured outputs to `results/phase1_baseline_comparison.json` and `results/phase1_baseline_comparison.csv`. Every executed experiment must be logged in [`docs/EXPERIMENT_LOG.md`](docs/EXPERIMENT_LOG.md) with its configuration, inputs, outputs, and saved results in `results/`.
 
 ## Project Structure
 
@@ -144,8 +152,8 @@ denial-attribution-research/
 
 ## Current Development Status
 
-- **Current Phase:** Phase 0 (Foundation) — complete.
-- **Next Milestone:** Phase 1 — Study ARM specifications in detail, implement typed Pydantic data models (`AgentEvent`, `DenialEvent`, `ProvenanceNode`, `ProvenanceEdge`, `PolicyDecision`), and build the deterministic ARM-inspired baseline in `src/monitor/` with unit tests.
+- **Current Phase:** Phase 1 (ARM Baseline) — complete.
+- **Next Milestone:** Phase 2 — Expand `E1`–`E5` scenarios and benign workflows under `scenarios/` and evaluate action-level vs. episode-level metrics across deterministic traces.
 
 ## Team Handover Instructions
 

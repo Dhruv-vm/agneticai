@@ -107,13 +107,23 @@ We plan to investigate:
 
 ## 10. Baseline Comparison Methodology
 
-We will compare candidate mechanisms under identical tool sets, capability tokens, and `L1`/`L3`/`L4` policy layers, varying only the provenance/attribution layer:
+We compare candidate mechanisms under identical tool sets, capability tokens, and `L1`/`L3`/`L4` policy layers, varying only the provenance/attribution layer:
 1. **No Provenance (`L1+L3+L4` only):** Measures what static boundary rules catch alone.
-2. **Flat Provenance Baseline (`L2`):** Checks direct citation/grounding in prior tool-call outputs (matching ARM's flat baseline).
-3. **ARM-Inspired Graph Provenance (`L2G`):** Implements `DeniedAction` nodes, temporal-adjacency `COUNTERFACTUAL` edges, transitive `MinTrust`, and field-level provenance.
+2. **Flat Provenance Baseline (`L2` — `FlatProvenanceLayer`):** Checks whether argument strings appear in immediate prior tool outputs in flat session history; if grounded in an immediate `TOOL_UNTRUSTED` / `TOOL_DESC` result, it denies, otherwise it passes. It performs **no** transitive graph traversal, **no** field-level trust resolution, and **no** denial-induced counterfactual tracking.
+3. **ARM-Inspired Graph Provenance (`L2G` — `GraphProvenanceLayer`):** Queries the `ProvenanceGraph` for `MinTrust(call) < threshold` (catching transitive taint and mixed-provenance field misuse) and `CounterfactualChains(call) != []` (catching causality laundering).
 4. **Proposed Denial-Attribution Mechanism (Phase 3):** Evaluated against `L2G` and, where applicable, an ablation-based baseline inspired by causal attribution literature.
 
-All simplifications relative to the reference ARM implementation (e.g., NetworkX vs. `rustworkx`, programmatic interception vs. MCP proxy) will be explicitly documented in Phase 1.
+### 10.1 Reproduced ARM Architecture & Documented Simplifications (Phase 1)
+
+Our Phase 1 baseline (`src/monitor/models.py`, `src/monitor/provenance.py`, `src/monitor/arm_baseline.py`) reproduces ARM's core abstractions while introducing the following explicit simplifications:
+1. **Graph Backend:** Uses `networkx.DiGraph` instead of `rustworkx`. Latency remains sub-millisecond for small session graphs, though scaling to very large graphs may differ.
+2. **Interposition Boundary:** Implemented as an in-process Python monitor (`ARMMonitor.evaluate_tool_call` / `record_tool_result`) rather than a separate-process MCP proxy server.
+3. **Audit Log:** Decisions are stored in-memory as `PolicyDecision` objects rather than a persistent SHA-256 hash-chained audit file.
+4. **Flat Baseline (`L2`):** Grounding checks string containment against serialized immediate tool results at object-level trust, matching the minimal baseline role in Chinaei (2026) Section 7.1.
+5. **Input Provenance Wiring:** In deterministic Phase 1 scenarios, `input_node_ids` are explicitly supplied by the scenario fixture rather than inferred automatically from an LLM's context window.
+
+### 10.2 Unresolved Technical Questions from Phase 1
+- **Cascading Counterfactual Denials:** Under `CounterfactualStrategy.IMMEDIATE_NEXT`, denying an action $a_1$ links $a_1 \to a_2$. If $a_2$ is a benign or intermediate tool (e.g., `get_time` in `E3`, `calculate` in `E4`), `L2G` denies $a_2$ as well—which creates a *new* `DeniedAction` node for $a_2$ and chains `COUNTERFACTUAL` to $a_3$. Thus, `L2G` blocks `E3` and `E4` only by blocking the intermediate benign/transform steps (high false-positive cost). If intermediate non-sink tools were exempted from counterfactual blocking, `IMMEDIATE_NEXT` would fail to link $a_1$ to $a_3$. Resolving how sink-scoped vs. step-scoped counterfactual propagation should work is a key Phase 2–3 question.
 
 ## 11. Attack Scenario Design
 
