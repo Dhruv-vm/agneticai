@@ -1,0 +1,20 @@
+[project]
+name = "denial-attribution-research"
+version = "0.1.0"
+description = "Reproducible experimental research on denial-specific causal attribution in tool-calling LLM agents."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "networkx>=3.4",
+    "pydantic>=2.10",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra"
