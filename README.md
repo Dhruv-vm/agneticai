@@ -71,8 +71,9 @@ After establishing and benchmarking the ARM-inspired baseline in Phases 1–2, w
 | ARM-inspired baseline monitor (`src/monitor/arm_baseline.py`) | **Implemented (Phase 1)** | `L1`, `L2` vs `L2G`, `L3`, `L4`; simplifications documented |
 | Scenario fixtures & comparison runner (`src/evaluation/`) | **Implemented (Phase 2)** | `metrics.py`, `scenarios.py`, `runner.py`; 19-scenario `E1`–`E5` suite in `configs/phase2_scenarios.json` |
 | Attack & benign scenario config (`configs/phase2_scenarios.json`) | **Implemented (Phase 2)** | 12 attack scenarios (`E1`, `E3`, `E4`, `E5`) + 7 benign controls (`E2`) |
-| Denial-specific attribution mechanism (`src/replay/`) | Planned (Phase 3) | Hypothesis only |
-| LLM-in-the-loop experiments (`src/agent/`) | Planned (Phase 4) | Pending Phases 1–3 |
+| Counterfactual attribution engine (`src/attribution/`) | **Implemented (Phase 3)** | `models.py`, `intervention.py`, `replay.py`, `comparison.py`, `attributor.py`, `policy_adapter.py` |
+| Paired attribution evaluation (`src/evaluation/phase3_runner.py`) | **Implemented (Phase 3)** | 23 paired scenarios (`configs/phase3_paired_scenarios.json`); outputs to `results/` |
+| LLM-in-the-loop experiments (`src/agent/`) | Planned (Phase 4) | Pending Phase 4 integration |
 
 ## Technology Stack
 
@@ -108,17 +109,23 @@ Do **not** commit `.env` or place real credentials in configuration files or exp
 uv run pytest -v
 ```
 
-Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`, `tests/test_phase2_audit.py`) runs 28 deterministic unit, scenario, and audit-regression tests.
+Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`, `tests/test_phase2_audit.py`, `tests/test_phase3_attribution.py`) runs 33 deterministic unit, scenario, audit, and attribution tests.
 
 ## How to Execute Experiments
 
-Run the Phase 2 deterministic strategy comparison (`L2`, `L2G+IMMEDIATE_NEXT`, `L2G+NONE`, `L2G+SINK_SCOPED`) across the 19-scenario `E1`–`E5` suite (`seed=42`):
+Run the Phase 2 deterministic strategy comparison:
 
 ```bash
 uv run python -m src.evaluation.runner
 ```
 
-This writes structured outputs to `results/phase2_strategy_comparison.json`, `results/phase2_per_scenario.csv`, and `results/phase2_aggregate_summary.csv`. Every executed experiment must be logged in [`docs/EXPERIMENT_LOG.md`](docs/EXPERIMENT_LOG.md) with its configuration, inputs, outputs, and saved results in `results/`.
+Run the Phase 3 paired-execution denial attribution evaluation (`23` paired scenarios, `seed=42`):
+
+```bash
+uv run python -m src.evaluation.phase3_runner
+```
+
+This writes structured outputs to `results/phase3_attribution_results.json`, `results/phase3_per_action.csv`, and `results/phase3_summary.csv`. Every executed experiment must be logged in [`docs/EXPERIMENT_LOG.md`](docs/EXPERIMENT_LOG.md) with its configuration, inputs, outputs, and saved results in `results/`.
 
 ## Project Structure
 
@@ -152,8 +159,8 @@ denial-attribution-research/
 
 ## Current Development Status
 
-- **Current Phase:** Phase 2 (Scenario Evaluation, Metrics & Counterfactual Strategy Comparison) — complete.
-- **Next Milestone:** Phase 3 — Design and evaluate a denial-specific causal attribution / intervention mechanism in `src/replay/` to address the precision–recall gap observed in Phase 2 (`IMMEDIATE_NEXT` over-blocking benign workflows vs. `SINK_SCOPED` missing paraphrased/laundered attacks).
+- **Current Phase:** Phase 3 (Counterfactual Denial Feedback Attribution Engine) — complete.
+- **Next Milestone:** Phase 4 — Integrate tool-calling LLM agents in `src/agent/` to test paired denial-feedback interventions under real model non-determinism and measure LLM replay overhead.
 
 ## Team Handover Instructions
 

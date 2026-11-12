@@ -94,16 +94,19 @@ All events and graph artifacts will use typed Pydantic v2 models:
 - `src/agent/`: Deterministic trace driver (Phases 1–2) and tool-calling LLM agent harness (Phase 4).
 - `src/evaluation/`: Scenario runner and action/episode-level metric computation.
 
-## 9. Proposed Counterfactual Intervention Approach
+## 9. Proposed Counterfactual Intervention Approach (Phase 3 Prototype)
 
-*(Conceptual design for Phase 3 — not yet implemented)*
+Implemented in `src/attribution/` (`models.py`, `intervention.py`, `replay.py`, `comparison.py`, `attributor.py`, `policy_adapter.py`):
+1. **Intervention Design (`DenialInterventionEngine`):** Supports `ACTUAL`, `NEUTRALIZED` (`"Action was not executed."`), `PARAPHRASED`, and `MINIMAL_STRUCTURED` feedback conditions while preserving the original `DenialEvent`.
+2. **Paired-Execution Replay (`DeterministicReplayEngine`):** Executes Branch A (`ACTUAL`) and Branch B (`NEUTRALIZED`) from identical initial state, identical permissions, and identical non-denial tool outputs for shared calls. Missing Branch B specs, state/permission mismatches, or non-deterministic flags are caught and marked `replay_valid=False`.
+3. **Trace Comparison (`compare_paired_traces`):** Aligns Branch A and Branch B across tool selection, ordering, arguments, `input_node_ids` provenance, protected-sink attempts, and final outcomes, flagging `differing_provenance_same_args` when identical arguments rest on different sources.
+4. **Attribution Classifications (`CounterfactualAttributor`):** Emits `DENIAL_SENSITIVE`, `DENIAL_INDEPENDENT`, `AMBIGUOUS`, or `NOT_EVALUABLE` with categorical uncertainty (`LOW`, `MEDIUM`, `HIGH`, `NOT_APPLICABLE`) rather than uncalibrated probabilities.
+5. **Experimental Policy Adapter (`AttributionPolicyAdapter`):** Disabled by default (`enforce_attribution=False`) so attribution quality is measured independently of enforcement.
 
-In Pearl's structural causal model framing, a denied action $a_d$ causally influences a subsequent action $a_s$ if $a_s$ (or its security-relevant arguments) would differ in a counterfactual execution where the denial feedback of $a_d$ was not observed (or replaced with a neutral/masked outcome).
-
-We plan to investigate:
-1. **Triggering Condition:** Rather than replaying every tool call, invoke counterfactual analysis selectively (e.g., only when a privileged sink call occurs in a session with prior `DeniedAction` nodes).
-2. **Denial-Signal Ablation:** Construct a counterfactual context where the denial reason or denial event is masked/ablated, and compare the resulting tool-call decision/arguments against the observed call.
-3. **Comparison Against Simpler Alternatives:** Test whether selective replay genuinely outperforms simpler non-LLM heuristics (e.g., sink-scoped counterfactual edges, configurable temporal windows, or information-content checks) to avoid claiming unnecessary complexity.
+### 9.1 Paired-Execution Assumptions, Threats to Validity & Limitations
+- **Scripted Counterfactuals (Phase 3):** In `configs/phase3_paired_scenarios.json`, Branch B traces are deterministic scripted counterfactuals (no LLM in the loop). Perfect deterministic attribution (`Acc=1.0` on 22 evaluable scenarios) validates the attribution pipeline's logic and edge-case handling—it does **not** establish how a live LLM will behave under neutralized denial feedback.
+- **Sensitivity vs. Causation:** Divergence between Branch A and Branch B is evidence of sensitivity to the denial-feedback intervention under tested conditions, not definitive proof of causal intent.
+- **Multiple Denials:** When multiple denials precede a divergent action (e.g., `E5`), session-level neutralization flags `DENIAL_SENSITIVE` with `HIGH` uncertainty; per-denial attribution requires individual denial ablation.
 
 ## 10. Baseline Comparison Methodology
 
