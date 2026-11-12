@@ -65,6 +65,7 @@ Copy this template for each new experiment (`EXP-001`, `EXP-002`, ...):
 ### Unit & Integration Verification (Non-Experimental)
 - **Phase 1 Command:** `uv run pytest -v` -> 20 passed in 0.34s.
 - **Phase 2 Command:** `uv run pytest -v` -> 25 passed in 0.29s (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`).
+- **Phase 2.1 Audit Command:** `uv run pytest -v` -> 28 passed (adds `tests/test_phase2_audit.py` verifying JSON/CSV reconstruction, 6 hand-traced scenarios, and strategy fairness).
 
 ---
 

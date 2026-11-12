@@ -108,7 +108,7 @@ Do **not** commit `.env` or place real credentials in configuration files or exp
 uv run pytest -v
 ```
 
-Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`) runs 20 deterministic unit and scenario tests covering data models, trust lattice ordering, provenance graph traversal, field-level isolation, `L1`/`L3`/`L4` policy layers, and `L2` vs. `L2G` enforcement.
+Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`, `tests/test_phase2_audit.py`) runs 28 deterministic unit, scenario, and audit-regression tests.
 
 ## How to Execute Experiments
 

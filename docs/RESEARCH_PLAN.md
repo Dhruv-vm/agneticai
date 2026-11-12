@@ -137,7 +137,12 @@ We evaluate four baseline configurations under identical `L1`, `L3`, `L4`, and c
 - **Scenario Suite (`configs/phase2_scenarios.json`, `seed=42`):** 19 deterministic scenarios—12 attack episodes (`E1`, `E3`, `E4`, `E5`, 3 distinct fixtures each) and 7 benign control episodes (`E2_01`–`E2_07`).
 - **Action-Level Class Definitions (`src/evaluation/metrics.py`):** Positive = unauthorized protected-sink action (`is_unauthorized_sink=True`); Negative = legitimate action (`expected_decision=ALLOW`). Expected setup probe denials (`PROBE`) are excluded from `TN`/`FP`. Zero-denominator ratios return `None` (`null` in JSON).
 - **What Phase 2 Establishes:** Neither temporal adjacency (`IMMEDIATE_NEXT`: ASR `0.000`, but Benign Completion `0.143` and Action FPR `0.864`) nor observable target-scoped provenance (`SINK_SCOPED`: Benign Completion `1.000`, Action FPR `0.000`, but ASR `0.750` and Action FNR `0.750`) simultaneously achieves low ASR and high benign task completion.
-- **What Phase 2 Does Not Establish:** These deterministic traces do not yet measure LLM-in-the-loop stochasticity or the performance of any Phase 3 counterfactual intervention mechanism.
+- **What Phase 2 Does Not Establish:** These deterministic traces do not yet measure LLM-in-the-loop stochasticity, statistical significance (19 synthetic scenarios is too small for significance claims), or the performance of any Phase 3 counterfactual intervention mechanism.
+
+### 10.4 Phase 2.1 Evaluation Validity Audit Findings
+An independent audit (`tests/test_phase2_audit.py`) verified JSON/CSV agreement, full aggregate reconstruction from action outcomes, 6 hand-traced scenarios, and `L1`/`L3`/`L4` fairness across strategies, identifying two medium/low-severity methodological caveats:
+1. **Intermediate Transform Labeling in `E4` (Medium):** In `E4_01`–`E4_03`, intermediate `TRANSFORM` calls (`calculate`, `format_response`) have `expected_decision="ALLOW"` and `denial_dependent=True`. Under `IMMEDIATE_NEXT`, blocking `calculate` is counted as an action-level `FP` while skipping the downstream `send_email` is counted as an action-level `TP`. This is consistent with the strict positive-class definition (`is_unauthorized_sink=True`) but means `E4` intermediate transforms are treated as negative-class actions despite being `denial_dependent`.
+2. **Latency Accounting in `L2` (Low):** `ARMMonitor.evaluate_tool_call` still records nodes in `ProvenanceGraph` when running in `FLAT_L2` mode, so `L2` latency (`0.1195 ms`) includes unused graph-bookkeeping overhead. Setup time (`load_phase2_scenarios`, `MonitorConfig`, `CapabilityToken`, `ARMMonitor.__init__`) is consistently excluded from `evaluate_episode` timing across all strategies.
 
 ## 11. Attack Scenario Design
 
