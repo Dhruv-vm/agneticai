@@ -67,6 +67,7 @@ Copy this template for each new experiment (`EXP-001`, `EXP-002`, ...):
 - **Phase 2 Command:** `uv run pytest -v` -> 25 passed in 0.29s (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`).
 - **Phase 2.1 Audit Command:** `uv run pytest -v` -> 28 passed (adds `tests/test_phase2_audit.py` verifying JSON/CSV reconstruction, 6 hand-traced scenarios, and strategy fairness).
 - **Phase 3 Verification Command:** `uv run pytest -v` -> 33 passed in 0.43s (adds `tests/test_phase3_attribution.py` covering interventions, paired replay, ambiguity, non-evaluable cases, adapter default-off, and reproducibility).
+- **Phase 3.1 Audit Command:** `uv run pytest -v` -> 38 passed in 0.29s (adds `tests/test_phase3_audit.py` covering blind held-out separation, metric reconstruction, multi-denial ablation, and audit report generation).
 
 ---
 
@@ -149,6 +150,37 @@ The Phase 3 attribution architecture and edge-case handling are verified on dete
 - **Python Version:** `3.12.14`
 - **Command:** `uv run python -m src.evaluation.phase3_runner`
 - **Result Artifacts:** `results/phase3_attribution_results.json`, `results/phase3_per_action.csv`, `results/phase3_summary.csv`
+
+---
+
+## EXP-004: Phase 3.1 Blind Held-Out & Multi-Denial Ablation Audit
+
+- **Experiment ID:** EXP-004
+- **Date:** 2026-11-12
+- **Research Objective:** Test Phase 3 attribution without fixture-label circularity using a strictly separated blind held-out suite and evaluate one-at-a-time per-denial ablation.
+- **Hypothesis:** The current `CounterfactualAttributor` will over-attribute unrelated divergences (`HO_05`, `HO_06`) as `DENIAL_SENSITIVE`, while per-denial ablation will separate single-denial influence from conjunctive interactions.
+- **Configuration:** [`configs/phase3_heldout_traces.json`](../configs/phase3_heldout_traces.json) (`seed=107`, observable fields only), scored post-hoc against [`configs/phase3_heldout_labels.json`](../configs/phase3_heldout_labels.json).
+- **Dataset / Scenario:** 6 blind held-out scenarios (`HO_01`–`HO_06`) + 2 multi-denial ablation cases (`MD_SEPARABLE_D1_ONLY`, `MD_CONJUNCTIVE_INTERACTION`).
+- **Model Used:** Deterministic paired-replay driver (no LLM).
+- **Baseline:** Unmodified Phase 3 `CounterfactualAttributor`.
+
+### Procedure
+1. `cd "/Users/dhruv/dhruv files/agentic ai/denial-attribution-research"`
+2. `uv run python -m src.evaluation.phase3_audit`
+
+### Results
+Saved in [`results/phase3_audit_report.json`](../results/phase3_audit_report.json):
+- **Metric Reconstruction (`EXP-003`):** Matches reported confusion matrix (`TP=14, FP=0, TN=8, FN=0, NOT_EVALUABLE=1`).
+- **Blind Held-Out Accuracy:** `4/6` (`0.667`): `HO_01`–`HO_04` correct; `HO_05` (`DENIAL_INDEPENDENT` -> predicted `DENIAL_SENSITIVE`) and `HO_06` (`AMBIGUOUS` -> predicted `DENIAL_SENSITIVE`) misclassified.
+- **Multi-Denial Ablation:** `MD_SEPARABLE_D1_ONLY` -> `DENIAL_SENSITIVE` (`denial_md_c1`); `MD_CONJUNCTIVE_INTERACTION` -> `AMBIGUOUS`.
+
+### Observations & Conclusion
+The `1.000` accuracy in `EXP-003` is **not** independent evidence of generalization because Branch B was pre-scripted. Phase 4 must generate Branch B dynamically from a live tool-calling LLM and refine divergence attribution against unrelated stochastic/template variation.
+
+### Reproducibility Information
+- **Python Version:** `3.12.14`
+- **Command:** `uv run python -m src.evaluation.phase3_audit`
+- **Result Artifact:** `results/phase3_audit_report.json`
 
 ---
 
