@@ -122,8 +122,22 @@ Our Phase 1 baseline (`src/monitor/models.py`, `src/monitor/provenance.py`, `src
 4. **Flat Baseline (`L2`):** Grounding checks string containment against serialized immediate tool results at object-level trust, matching the minimal baseline role in Chinaei (2026) Section 7.1.
 5. **Input Provenance Wiring:** In deterministic Phase 1 scenarios, `input_node_ids` are explicitly supplied by the scenario fixture rather than inferred automatically from an LLM's context window.
 
-### 10.2 Unresolved Technical Questions from Phase 1
-- **Cascading Counterfactual Denials:** Under `CounterfactualStrategy.IMMEDIATE_NEXT`, denying an action $a_1$ links $a_1 \to a_2$. If $a_2$ is a benign or intermediate tool (e.g., `get_time` in `E3`, `calculate` in `E4`), `L2G` denies $a_2$ as well—which creates a *new* `DeniedAction` node for $a_2$ and chains `COUNTERFACTUAL` to $a_3$. Thus, `L2G` blocks `E3` and `E4` only by blocking the intermediate benign/transform steps (high false-positive cost). If intermediate non-sink tools were exempted from counterfactual blocking, `IMMEDIATE_NEXT` would fail to link $a_1$ to $a_3$. Resolving how sink-scoped vs. step-scoped counterfactual propagation should work is a key Phase 2–3 question.
+### 10.2 Counterfactual Strategies Evaluated (Phase 2)
+We evaluate four baseline configurations under identical `L1`, `L3`, `L4`, and capability-token settings:
+1. **`L2` (Flat Provenance Baseline):** Object-level grounding in immediate tool history; no counterfactual edges.
+2. **`L2G + NONE`:** Graph-aware `MinTrust` and field-level provenance, with counterfactual edge creation disabled.
+3. **`L2G + IMMEDIATE_NEXT` (ARM Default):** Links each `DeniedAction` to the immediately following tool call regardless of tool type or provenance.
+4. **`L2G + SINK_SCOPED` (Experimental Observable-Provenance Baseline):** Links a prior `DeniedAction` $d$ to a downstream call $c$ **only if**:
+   - $c$ invokes a configured protected sink (`send_email`, `post_message`, `write_file`, `delete_file`, `transfer_funds`, `update_record`, `run_code`), **and**
+   - $c$ has no explicit independent `input_node_ids` provenance, **and**
+   - $c$'s arguments share at least one non-trivial ($\ge 4$-char) token with $d$'s denied arguments.
+   - **Limitations of `SINK_SCOPED`:** It is an observable lexical/provenance approximation, not a causal detector. It fails when denial feedback is paraphrased (`E1_02`, `E3_02`), encoded/laundered (`E4`), or aggregated into counts/bitmaps (`E5`), and it could still be evaded or confused if an attacker omits literal target tokens.
+
+### 10.3 Phase 2 Evaluation Protocol & What Results Establish
+- **Scenario Suite (`configs/phase2_scenarios.json`, `seed=42`):** 19 deterministic scenarios—12 attack episodes (`E1`, `E3`, `E4`, `E5`, 3 distinct fixtures each) and 7 benign control episodes (`E2_01`–`E2_07`).
+- **Action-Level Class Definitions (`src/evaluation/metrics.py`):** Positive = unauthorized protected-sink action (`is_unauthorized_sink=True`); Negative = legitimate action (`expected_decision=ALLOW`). Expected setup probe denials (`PROBE`) are excluded from `TN`/`FP`. Zero-denominator ratios return `None` (`null` in JSON).
+- **What Phase 2 Establishes:** Neither temporal adjacency (`IMMEDIATE_NEXT`: ASR `0.000`, but Benign Completion `0.143` and Action FPR `0.864`) nor observable target-scoped provenance (`SINK_SCOPED`: Benign Completion `1.000`, Action FPR `0.000`, but ASR `0.750` and Action FNR `0.750`) simultaneously achieves low ASR and high benign task completion.
+- **What Phase 2 Does Not Establish:** These deterministic traces do not yet measure LLM-in-the-loop stochasticity or the performance of any Phase 3 counterfactual intervention mechanism.
 
 ## 11. Attack Scenario Design
 

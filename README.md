@@ -69,8 +69,8 @@ After establishing and benchmarking the ARM-inspired baseline in Phases 1–2, w
 | Structured event/graph/policy models (`src/monitor/models.py`) | **Implemented (Phase 1)** | Pydantic v2 models + 5-level `TrustLevel` `IntEnum` |
 | NetworkX provenance graph (`src/monitor/provenance.py`) | **Implemented (Phase 1)** | Nodes, edges, `MinTrust`, counterfactual chains |
 | ARM-inspired baseline monitor (`src/monitor/arm_baseline.py`) | **Implemented (Phase 1)** | `L1`, `L2` vs `L2G`, `L3`, `L4`; simplifications documented |
-| Scenario fixtures & comparison runner (`src/evaluation/`) | **Implemented (Phase 1)** | `E1`–`E5` + ARM core scenarios; outputs to `results/` |
-| Attack & benign scenario expansion (`scenarios/`) | Planned (Phase 2) | Deepening `E1`–`E5` variants & benign datasets |
+| Scenario fixtures & comparison runner (`src/evaluation/`) | **Implemented (Phase 2)** | `metrics.py`, `scenarios.py`, `runner.py`; 19-scenario `E1`–`E5` suite in `configs/phase2_scenarios.json` |
+| Attack & benign scenario config (`configs/phase2_scenarios.json`) | **Implemented (Phase 2)** | 12 attack scenarios (`E1`, `E3`, `E4`, `E5`) + 7 benign controls (`E2`) |
 | Denial-specific attribution mechanism (`src/replay/`) | Planned (Phase 3) | Hypothesis only |
 | LLM-in-the-loop experiments (`src/agent/`) | Planned (Phase 4) | Pending Phases 1–3 |
 
@@ -112,13 +112,13 @@ Currently, the test suite (`tests/test_smoke.py`, `tests/test_models_and_trust.p
 
 ## How to Execute Experiments
 
-Run the Phase 1 deterministic `L2` vs. `L2G` baseline comparison:
+Run the Phase 2 deterministic strategy comparison (`L2`, `L2G+IMMEDIATE_NEXT`, `L2G+NONE`, `L2G+SINK_SCOPED`) across the 19-scenario `E1`–`E5` suite (`seed=42`):
 
 ```bash
 uv run python -m src.evaluation.runner
 ```
 
-This writes structured outputs to `results/phase1_baseline_comparison.json` and `results/phase1_baseline_comparison.csv`. Every executed experiment must be logged in [`docs/EXPERIMENT_LOG.md`](docs/EXPERIMENT_LOG.md) with its configuration, inputs, outputs, and saved results in `results/`.
+This writes structured outputs to `results/phase2_strategy_comparison.json`, `results/phase2_per_scenario.csv`, and `results/phase2_aggregate_summary.csv`. Every executed experiment must be logged in [`docs/EXPERIMENT_LOG.md`](docs/EXPERIMENT_LOG.md) with its configuration, inputs, outputs, and saved results in `results/`.
 
 ## Project Structure
 
@@ -152,8 +152,8 @@ denial-attribution-research/
 
 ## Current Development Status
 
-- **Current Phase:** Phase 1 (ARM Baseline) — complete.
-- **Next Milestone:** Phase 2 — Expand `E1`–`E5` scenarios and benign workflows under `scenarios/` and evaluate action-level vs. episode-level metrics across deterministic traces.
+- **Current Phase:** Phase 2 (Scenario Evaluation, Metrics & Counterfactual Strategy Comparison) — complete.
+- **Next Milestone:** Phase 3 — Design and evaluate a denial-specific causal attribution / intervention mechanism in `src/replay/` to address the precision–recall gap observed in Phase 2 (`IMMEDIATE_NEXT` over-blocking benign workflows vs. `SINK_SCOPED` missing paraphrased/laundered attacks).
 
 ## Team Handover Instructions
 

@@ -50,6 +50,7 @@ class CounterfactualStrategy(str, Enum):
 
     IMMEDIATE_NEXT = "IMMEDIATE_NEXT"
     ALL_SUBSEQUENT = "ALL_SUBSEQUENT"
+    SINK_SCOPED = "SINK_SCOPED"
     NONE = "NONE"
 
 
@@ -87,6 +88,15 @@ class MonitorConfig(BaseModel):
         "/.aws/",
         "~/.aws/",
         ".env",
+    )
+    protected_sinks: tuple[str, ...] = (
+        "send_email",
+        "post_message",
+        "write_file",
+        "delete_file",
+        "transfer_funds",
+        "update_record",
+        "run_code",
     )
 
 
@@ -481,7 +491,13 @@ class ARMMonitor:
             metadata={"arguments": arguments},
             timestamp=ts,
         )
-        self._attach_counterfactual_edges(target_call_id=event_id, timestamp=ts)
+        self._attach_counterfactual_edges(
+            target_call_id=event_id,
+            tool_name=tool_name,
+            arguments=arguments,
+            input_node_ids=input_node_ids or [],
+            timestamp=ts,
+        )
 
         layer_results: list[LayerResult] = []
         l1_res = self._l1.evaluate(event, self.context, self.config)
@@ -559,8 +575,22 @@ class ARMMonitor:
             }
         )
 
+    def _extract_target_tokens(self, arguments: dict[str, Any]) -> set[str]:
+        """Extract non-trivial alphanumeric tokens (>=4 chars) from tool arguments."""
+        tokens: set[str] = set()
+        for _, value in _iter_string_values(arguments):
+            for part in re.split(r"[^a-zA-Z0-9_]+", value.lower()):
+                if len(part) >= 4:
+                    tokens.add(part)
+        return tokens
+
     def _attach_counterfactual_edges(
-        self, target_call_id: str, timestamp: datetime
+        self,
+        target_call_id: str,
+        tool_name: str,
+        arguments: dict[str, Any],
+        input_node_ids: list[str],
+        timestamp: datetime,
     ) -> None:
         strategy = self.config.counterfactual_strategy
         if strategy == CounterfactualStrategy.NONE:
@@ -580,6 +610,28 @@ class ARMMonitor:
                     target_call_id=target_call_id,
                     timestamp=timestamp,
                 )
+        elif strategy == CounterfactualStrategy.SINK_SCOPED:
+            # Only protected sinks are candidates for counterfactual linking.
+            if tool_name not in self.config.protected_sinks:
+                return
+            # If the sink call has explicit independent provenance inputs, do not
+            # heuristically attribute it to an earlier unrelated denial.
+            if input_node_ids:
+                return
+            sink_tokens = self._extract_target_tokens(arguments)
+            if not sink_tokens:
+                return
+            for denial_id in self._all_denial_ids:
+                denial_node = self.graph.get_node(denial_id)
+                source_call = self.graph.get_node(denial_node.source_id)
+                denied_args = source_call.metadata.get("arguments", {})
+                denied_tokens = self._extract_target_tokens(denied_args)
+                if sink_tokens & denied_tokens:
+                    self.graph.add_counterfactual_edge(
+                        denial_id=denial_id,
+                        target_call_id=target_call_id,
+                        timestamp=timestamp,
+                    )
 
     def _finalize_denial(
         self,

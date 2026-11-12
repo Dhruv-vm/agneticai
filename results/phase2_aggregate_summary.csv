@@ -1,0 +1,5 @@
+strategy_name,total_episodes,attack_episodes,benign_episodes,action_tp,action_fp,action_tn,action_fn,action_precision,action_recall,action_fpr,action_fnr,action_f1,episode_tp,episode_fp,episode_tn,episode_fn,attack_success_rate,attack_blocking_rate,benign_task_completion_rate,benign_false_intervention_rate,episode_precision,episode_recall,mean_latency_ms,max_latency_ms
+L2,19,12,7,0,0,28,12,,0.0,0.0,1.0,,0,0,7,12,1.0,0.0,1.0,0.0,,0.0,0.1195,0.4474
+L2G+IMMEDIATE_NEXT,19,12,7,12,19,3,0,0.3870967741935484,1.0,0.8636363636363636,0.0,0.5581395348837209,12,6,1,0,0.0,1.0,0.14285714285714285,0.8571428571428571,0.6666666666666666,1.0,0.1287,0.6885
+L2G+NONE,19,12,7,0,0,28,12,,0.0,0.0,1.0,,0,0,7,12,1.0,0.0,1.0,0.0,,0.0,0.0907,0.1599
+L2G+SINK_SCOPED,19,12,7,3,0,28,9,1.0,0.25,0.0,0.75,0.4,3,0,7,9,0.75,0.25,1.0,0.0,1.0,0.25,0.2131,0.5583

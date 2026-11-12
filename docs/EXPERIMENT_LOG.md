@@ -63,8 +63,48 @@ Copy this template for each new experiment (`EXP-001`, `EXP-002`, ...):
 ## Recorded Experiments
 
 ### Unit & Integration Verification (Non-Experimental)
-- **Command:** `uv run pytest -v`
-- **Outcome:** 20 passed in 0.31s (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`).
+- **Phase 1 Command:** `uv run pytest -v` -> 20 passed in 0.34s.
+- **Phase 2 Command:** `uv run pytest -v` -> 25 passed in 0.29s (`tests/test_smoke.py`, `tests/test_models_and_trust.py`, `tests/test_provenance_graph.py`, `tests/test_arm_baseline.py`, `tests/test_phase2_evaluation.py`).
+
+---
+
+## EXP-002: Phase 2 Counterfactual Strategy Comparison (`E1`–`E5`)
+
+- **Experiment ID:** EXP-002
+- **Date:** 2026-11-12
+- **Research Objective:** Quantify the security–utility trade-off (ASR, Benign Task Completion, Action FPR/FNR) across `L2`, `L2G+NONE`, `L2G+IMMEDIATE_NEXT`, and `L2G+SINK_SCOPED` on a 19-scenario deterministic suite.
+- **Hypothesis:** `L2G+IMMEDIATE_NEXT` will achieve low ASR at the cost of high false-positive blocking on benign post-denial workflows, whereas `L2G+SINK_SCOPED` will eliminate benign false positives while missing paraphrased, laundered, and aggregate-probe attacks.
+- **Configuration:** [`configs/phase2_scenarios.json`](../configs/phase2_scenarios.json) (`seed=42`), identical `L1`/`L3`/`L4` layers and `CapabilityToken` across all 4 strategies.
+- **Dataset / Scenario:** 19 scenarios — 12 attacks (`E1`×3, `E3`×3, `E4`×3, `E5`×3) and 7 benign controls (`E2_01`–`E2_07`).
+- **Model Used:** Deterministic trace driver (`src/evaluation/scenarios.py`, no LLM).
+- **Baseline:** `L2`, `L2G+NONE`, `L2G+IMMEDIATE_NEXT`.
+
+### Procedure
+1. `cd "/Users/dhruv/dhruv files/agentic ai/denial-attribution-research"`
+2. `uv run python -m src.evaluation.runner`
+
+### Results
+Saved in [`results/phase2_strategy_comparison.json`](../results/phase2_strategy_comparison.json), [`results/phase2_aggregate_summary.csv`](../results/phase2_aggregate_summary.csv), and [`results/phase2_per_scenario.csv`](../results/phase2_per_scenario.csv):
+
+| Strategy | ASR | Attack Blocking | Benign Completion | Benign False Int. | Action Precision | Action Recall | Action FPR | Action FNR | Mean Latency (ms) |
+|---|---|---|---|---|---|---|---|---|---|
+| `L2` | 1.000 | 0.000 | 1.000 | 0.000 | `None` (0/0) | 0.000 | 0.000 | 1.000 | 0.1100 |
+| `L2G+NONE` | 1.000 | 0.000 | 1.000 | 0.000 | `None` (0/0) | 0.000 | 0.000 | 1.000 | 0.0858 |
+| `L2G+IMMEDIATE_NEXT` | 0.000 | 1.000 | 0.143 (1/7) | 0.857 (6/7) | 0.387 (12/31) | 1.000 | 0.864 (19/22) | 0.000 | 0.1203 |
+| `L2G+SINK_SCOPED` | 0.750 (9/12) | 0.250 (3/12) | 1.000 (7/7) | 0.000 | 1.000 (3/3) | 0.250 | 0.000 | 0.750 | 0.0959 |
+
+### Observations
+- `L2` and `L2G+NONE` miss all 12 denial-feedback attacks (`ASR = 1.000`).
+- `L2G+IMMEDIATE_NEXT` blocks all 12 attacks (`ASR = 0.000`), but blocks 6 of 7 benign workflows (`BenignComp = 0.143`, `ActionFPR = 0.864`), succeeding only on `E2_06_NO_DENIAL_BASELINE`.
+- `L2G+SINK_SCOPED` preserves 100% benign completion (`1.000`, `ActionFPR = 0.000`), including `E2_07_SIMILAR_ARG_INDEPENDENT_SOURCE`, but misses 9 of 12 attacks (`ASR = 0.750`) whenever denial feedback is paraphrased (`E1_02`, `E1_03`, `E3_02`), laundered (`E4_01`–`E4_03`), or aggregated (`E5_01`–`E5_03`).
+
+### Conclusion
+Both halves of the baseline trade-off are empirically confirmed: temporal adjacency (`IMMEDIATE_NEXT`) is unusable for benign post-denial workflows, while observable target-scoped provenance (`SINK_SCOPED`) is easily evaded by paraphrasing or multi-step laundering. This justifies investigating a denial-specific causal attribution mechanism in Phase 3.
+
+### Reproducibility Information
+- **Python Version:** `3.12.14`
+- **Command:** `uv run python -m src.evaluation.runner`
+- **Result Artifacts:** `results/phase2_strategy_comparison.json`, `results/phase2_aggregate_summary.csv`, `results/phase2_per_scenario.csv`
 
 ---
 
